@@ -28,7 +28,6 @@ def _read_rotations(path: Path) -> tuple[int]:
     return tuple(map(int, rot_strs))
 
 
-
 def _safe_password(dial_start: int, rotations: tuple[int]) -> int:
     # the password is the number of times the dial
     # left pointing at 0 after any rotation in the sequence

@@ -15,6 +15,7 @@ EXAMPLE = """\
 *   +   *   +
 """
 
+
 class Problem(NamedTuple):
     op: str
     numbers: tuple[int]

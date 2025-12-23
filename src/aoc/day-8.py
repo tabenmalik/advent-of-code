@@ -34,6 +34,7 @@ EXAMPLE = """\
 425,690,689
 """
 
+
 class Junction(NamedTuple):
     x: int
     y: int
@@ -71,9 +72,9 @@ class JunctionGraph:
             return True
         return False
 
-        #checked = set()
-        #to_check = {j1}
-        #while to_check:
+        # checked = set()
+        # to_check = {j1}
+        # while to_check:
         #    junction = to_check.pop()
         #    if junction == j2:
         #        self._connection_cache.add((j1, j2))
@@ -82,16 +83,15 @@ class JunctionGraph:
         #    for connection in self._graph[junction]:
         #        if connection not in checked:
         #            to_check.add(connection)
-        #return False
+        # return False
 
     @cached_property
     def max_distance(self):
         max_dist = 0
-        for (j1, j2) in combinations(self._graph, 2):
+        for j1, j2 in combinations(self._graph, 2):
             max_dist = max(max_dist, distance(j1, j2))
 
         return max_dist
-
 
     def closest_non_connected_junctions(self, max_pairs):
         for i, pair in enumerate(self._shortest_distances):
@@ -123,8 +123,7 @@ def _read_junction_locations(p):
         point_strs = fobj.read().strip().split()
 
     junctions = tuple(
-        Junction(*map(int, point_str.split(",")))
-        for point_str in point_strs
+        Junction(*map(int, point_str.split(","))) for point_str in point_strs
     )
 
     return JunctionGraph(junctions)
@@ -137,7 +136,9 @@ def main():
     args = parser.parse_args()
 
     junction_graph = _read_junction_locations(args.input)
-    while (junction_pair := junction_graph.closest_non_connected_junctions(args.pairs)) is not None:
+    while (
+        junction_pair := junction_graph.closest_non_connected_junctions(args.pairs)
+    ) is not None:
         junction_graph.connect(*junction_pair)
     circuits = junction_graph.circuits()
     circuits.sort(key=len, reverse=True)
@@ -145,10 +146,15 @@ def main():
     print(f"Multiplication of three largest circuits: {circuit_multiply}")
 
     last_junction_pair = None
-    while (junction_pair := junction_graph.closest_non_connected_junctions(1_000_000_000)) is not None:
+    while (
+        junction_pair := junction_graph.closest_non_connected_junctions(1_000_000_000)
+    ) is not None:
         junction_graph.connect(*junction_pair)
         last_junction_pair = junction_pair
-    print(f"Coordinate multiply of last connected junction: {last_junction_pair[0].x * last_junction_pair[1].x}")
+    print(
+        f"Coordinate multiply of last connected junction: {last_junction_pair[0].x * last_junction_pair[1].x}"
+    )
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

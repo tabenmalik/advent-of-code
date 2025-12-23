@@ -19,6 +19,7 @@ EXAMPLE = """\
 32
 """
 
+
 def _read_ingredient_database(p: Path):
     with open(p) as fobj:
         id_range_strs = []
@@ -34,8 +35,7 @@ def _read_ingredient_database(p: Path):
                 id_strs.append(line)
 
     id_ranges = [
-        tuple(map(int, id_range_str.split("-")))
-        for id_range_str in id_range_strs
+        tuple(map(int, id_range_str.split("-"))) for id_range_str in id_range_strs
     ]
 
     ids = list(map(int, id_strs))
@@ -54,7 +54,10 @@ def _merge_id_ranges(id_ranges):
     merged_id_ranges = [id_ranges[0]]
     for id_range in id_ranges[1:]:
         if _ranges_overlap(merged_id_ranges[-1], id_range):
-            merged_id_ranges[-1] = (merged_id_ranges[-1][0], max(merged_id_ranges[-1][1], id_range[1]))
+            merged_id_ranges[-1] = (
+                merged_id_ranges[-1][0],
+                max(merged_id_ranges[-1][1], id_range[1]),
+            )
         else:
             merged_id_ranges.append(id_range)
 
@@ -78,9 +81,10 @@ def _num_of_available_fresh_ids(id_ranges):
         total += len(range(id_range[0], id_range[1] + 1))
     return total
 
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", type = lambda s: Path(s).absolute())
+    parser.add_argument("input", type=lambda s: Path(s).absolute())
     args = parser.parse_args(argv)
 
     id_ranges, ids = _read_ingredient_database(args.input)

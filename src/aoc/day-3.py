@@ -10,6 +10,7 @@ EXAMPLE = """\
 818181911112111
 """
 
+
 def _max_joltage_batteries(bank: str, num_batteries: int):
     joltage_index = 0
     for joltage in range(9, 0, -1):
@@ -19,7 +20,9 @@ def _max_joltage_batteries(bank: str, num_batteries: int):
 
     if num_batteries == 1:
         return bank[joltage_index]
-    return bank[joltage_index] + _max_joltage_batteries(bank[joltage_index+1:], num_batteries - 1)
+    return bank[joltage_index] + _max_joltage_batteries(
+        bank[joltage_index + 1 :], num_batteries - 1
+    )
 
 
 def _max_joltage(bank: str, num_batteries: int) -> int:
@@ -43,6 +46,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     banks = _read_battery_banks(args.input)
     print("Total output joltage: ", _total_max_joltage(banks, args.num_batteries))
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

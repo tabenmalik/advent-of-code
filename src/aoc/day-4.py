@@ -19,6 +19,7 @@ EXAMPLE = """\
 @.@.@@@.@.
 """
 
+
 def _read_grid(p):
     # returned grid where 1,1 (col, row) is the top left corner
     with open(p) as fobj:
@@ -29,15 +30,9 @@ def _read_grid(p):
     extra_row = "." * num_cols
     lines.insert(0, extra_row)
     lines.append(extra_row)
-    lines = [
-        "." + line + "."
-        for line in lines
-    ]
+    lines = ["." + line + "." for line in lines]
 
-    grid = [
-        list(line)
-        for line in lines
-    ]
+    grid = [list(line) for line in lines]
 
     return grid
 
@@ -86,6 +81,7 @@ def _num_rolls_access_by_forklift_with_removal(grid):
         grid = _remove_rolls_by_forklift(grid)
     return count
 
+
 def _main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=lambda s: Path(s).absolute())
@@ -94,7 +90,10 @@ def _main(argv: Sequence[str] | None = None) -> int:
     grid = _read_grid(args.input)
     print(f"Number of rolls: {_num_rolls_access_by_forklift(grid)}")
 
-    print(f"Number of rolls with removal: {_num_rolls_access_by_forklift_with_removal(grid)}")
+    print(
+        f"Number of rolls with removal: {_num_rolls_access_by_forklift_with_removal(grid)}"
+    )
+
 
 if __name__ == "__main__":
     raise SystemExit(_main())

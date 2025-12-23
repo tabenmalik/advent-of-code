@@ -9,6 +9,7 @@ from pathlib import Path
 from http.cookiejar import MozillaCookieJar
 from urllib import request
 
+
 def _setup_session(cookie_filename="cookies.txt"):
     cj = MozillaCookieJar("./cookies.txt")
     cj.load()
@@ -16,7 +17,10 @@ def _setup_session(cookie_filename="cookies.txt"):
     request.install_opener(opener)
 
 
-def _download_input(year, day, ):
+def _download_input(
+    year,
+    day,
+):
     resp = request.urlopen(f"https://adventofcode.com/{year}/day/{day}/input")
     return resp.read().decode()
 
