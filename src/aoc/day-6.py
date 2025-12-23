@@ -9,10 +9,10 @@ from functools import reduce
 
 
 EXAMPLE = """\
-123 328  51 64 
- 45 64  387 23 
+123 328  51 64
+ 45 64  387 23
   6 98  215 314
-*   +   *   +  
+*   +   *   +
 """
 
 class Problem(NamedTuple):

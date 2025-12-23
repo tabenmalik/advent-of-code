@@ -17,5 +17,3 @@ def _download_input(year, day, ):
 
 def get_input():
     ...
-
-
