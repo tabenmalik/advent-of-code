@@ -7,6 +7,14 @@ from operator import add
 from operator import mul
 from functools import reduce
 
+
+EXAMPLE = """\
+123 328  51 64 
+ 45 64  387 23 
+  6 98  215 314
+*   +   *   +  
+"""
+
 class Problem(NamedTuple):
     op: str
     numbers: tuple[int]

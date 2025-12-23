@@ -6,6 +6,19 @@ from pathlib import Path
 from typing import Sequence
 
 
+EXAMPLE = """\
+..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.
+"""
+
 def _read_grid(p):
     # returned grid where 1,1 (col, row) is the top left corner
     with open(p) as fobj:

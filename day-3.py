@@ -3,6 +3,13 @@ from pathlib import Path
 import argparse
 from itertools import combinations
 
+EXAMPLE = """\
+987654321111111
+811111111111119
+234234234234278
+818181911112111
+"""
+
 def _max_joltage_batteries(bank: str, num_batteries: int):
     joltage_index = 0
     for joltage in range(9, 0, -1):

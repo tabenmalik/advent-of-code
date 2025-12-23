@@ -5,6 +5,20 @@ from pathlib import Path
 from typing import Sequence
 
 
+EXAMPLE = """\
+3-5
+10-14
+16-20
+12-18
+
+1
+5
+8
+11
+17
+32
+"""
+
 def _read_ingredient_database(p: Path):
     with open(p) as fobj:
         id_range_strs = []
