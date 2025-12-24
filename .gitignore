@@ -2,3 +2,4 @@ inputs/
 cookies.txt
 build/
 *.egg-info
+__pycache__/
