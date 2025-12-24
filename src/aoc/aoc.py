@@ -45,7 +45,3 @@ def _get():
         fobj.write(inp)
     os.chmod(inp_filename, stat.S_IREAD)
     print(inp)
-
-
-if __name__ == "__main__":
-    _get()

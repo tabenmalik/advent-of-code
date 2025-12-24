@@ -1,2 +1,4 @@
 inputs/
 cookies.txt
+build/
+*.egg-info
