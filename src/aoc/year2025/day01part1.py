@@ -28,6 +28,11 @@ def _read_rotations(path: Path) -> tuple[int]:
     return tuple(map(int, rot_strs))
 
 
+def _parse_rotations(s: str) -> tuple[int]:
+    rot_strs = [rot.replace("R", "").replace("L", "-") for rot in s.strip().split()]
+    return tuple(map(int, rot_strs))
+
+
 def _safe_password(dial_start: int, rotations: tuple[int]) -> int:
     # the password is the number of times the dial
     # left pointing at 0 after any rotation in the sequence
@@ -49,6 +54,13 @@ def _safe_password_434C49434B(dial_start: int, rotations: tuple[int]) -> int:
                 zero_count += 1
 
     return zero_count
+
+
+def solve(input_s):
+    rotations = _parse_rotations(input_s)
+    password = _safe_password(50, rotations)
+
+    return password
 
 
 def _main(argv: Sequence[str] | None = None) -> int:

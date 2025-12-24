@@ -12,3 +12,4 @@ description = "Solutions to Advent of Code problems."
 
 [project.scripts]
 aoc-get = "aoc.aoc:_get"
+aoc-run = "aoc.aoc:_run"

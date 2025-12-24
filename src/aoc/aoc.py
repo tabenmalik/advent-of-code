@@ -2,6 +2,7 @@ import argparse
 import os
 import stat
 from pathlib import Path
+import importlib
 
 # aoc get-input [year] [day]
 # aoc run [year] [day]
@@ -45,3 +46,20 @@ def _get():
         fobj.write(inp)
     os.chmod(inp_filename, stat.S_IREAD)
     print(inp)
+
+
+def _run():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("day", type=int)
+    parser.add_argument("part", type=int)
+
+    args = parser.parse_args()
+
+    inp_filename = Path.cwd() / "inputs" / f"{args.year}" / f"{args.day:02d}.txt"
+    with open(inp_filename) as fobj:
+        input_s = fobj.read()
+
+    module_name = f"aoc.year{args.year}.day{args.day:02d}part{args.part}"
+    problem_module = importlib.import_module(module_name)
+    print(problem_module.solve(input_s))
