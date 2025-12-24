@@ -4,7 +4,6 @@ import argparse
 from pathlib import Path
 from typing import Sequence
 
-
 EXAMPLE = """\
 3-5
 10-14

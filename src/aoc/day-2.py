@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import argparse
+from itertools import batched
 from itertools import chain
-from pathlib import Path
-from typing import Sequence
-from typing import Generator
-from itertools import batched
-from itertools import islice
-from itertools import batched
 from itertools import groupby
+from itertools import islice
+from pathlib import Path
+from typing import Generator
+from typing import Sequence
 
 EXAMPLE = """\
 11-22,95-115,998-1012,1188511880-1188511890,222220-222224,

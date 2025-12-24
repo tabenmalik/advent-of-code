@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 import argparse
+import importlib
 import os
 import stat
-from pathlib import Path
-import importlib
 
 # aoc get-input [year] [day]
 # aoc run [year] [day]
 # aoc submit [year] [day]
 from http.cookiejar import MozillaCookieJar
+from pathlib import Path
 from urllib import request
 
 

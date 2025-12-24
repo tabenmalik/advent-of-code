@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
-from math import sqrt
-from typing import NamedTuple
-from itertools import combinations
-from functools import cached_property
 from functools import cache
+from functools import cached_property
 from functools import reduce
+from itertools import combinations
+from math import sqrt
 from operator import mul
-
+from pathlib import Path
+from typing import NamedTuple
 
 EXAMPLE = """\
 162,817,812

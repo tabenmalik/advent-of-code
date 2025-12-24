@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
-from typing import NamedTuple
+from functools import reduce
 from operator import add
 from operator import mul
-from functools import reduce
-
+from pathlib import Path
+from typing import NamedTuple
 
 EXAMPLE = """\
 123 328  51 64

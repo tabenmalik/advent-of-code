@@ -1,7 +1,9 @@
-from typing import Sequence
-from pathlib import Path
+from __future__ import annotations
+
 import argparse
 from itertools import combinations
+from pathlib import Path
+from typing import Sequence
 
 EXAMPLE = """\
 987654321111111

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
-from pathlib import Path
-from math import copysign
 from itertools import repeat
+from math import copysign
+from pathlib import Path
 
 EXAMPLE = """\
 L68
