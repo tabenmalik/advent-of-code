@@ -19,19 +19,18 @@ EXAMPLE = """\
 """
 
 
-def _read_ingredient_database(p: Path):
-    with open(p) as fobj:
-        id_range_strs = []
-        file_iter = iter(fobj)
-        for line in file_iter:
-            if not line.strip():
-                break
-            id_range_strs.append(line)
+def _parse_ingredient_database(input_s):
+    id_range_strs = []
+    file_iter = iter(input_s.split("\n"))
+    for line in file_iter:
+        if not line.strip():
+            break
+        id_range_strs.append(line)
 
-        id_strs = []
-        for line in file_iter:
-            if line.strip():
-                id_strs.append(line)
+    id_strs = []
+    for line in file_iter:
+        if line.strip():
+            id_strs.append(line)
 
     id_ranges = [
         tuple(map(int, id_range_str.split("-"))) for id_range_str in id_range_strs
@@ -74,11 +73,11 @@ def _find_fresh_ids(ids, id_ranges):
     return fresh_ids
 
 
-def _num_of_available_fresh_ids(id_ranges):
-    total = 0
-    for id_range in id_ranges:
-        total += len(range(id_range[0], id_range[1] + 1))
-    return total
+def solve(input_s):
+    id_ranges, ids = _parse_ingredient_database(input_s)
+    id_ranges = _merge_id_ranges(id_ranges)
+    fresh_ids = _find_fresh_ids(ids, id_ranges)
+    return len(fresh_ids)
 
 
 def main(argv: Sequence[str] | None = None) -> int:

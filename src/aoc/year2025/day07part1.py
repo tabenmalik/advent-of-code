@@ -96,9 +96,15 @@ class TachyonManifold:
                 assert False, "Shouldn't happen!"
 
 
-def _load_tachyon_manifold(p: Path) -> TachyonManifold:
-    with open(p) as fobj:
-        return TachyonManifold(list(map(list, fobj.read().strip().split())))
+def _parse_tachyon_manifold(input_s) -> TachyonManifold:
+    return TachyonManifold(list(map(list, input_s.strip().split())))
+
+
+def solve(input_s):
+    tm = _parse_tachyon_manifold(input_s)
+    while tm.can_update():
+        tm.update()
+    return tm.num_splits()
 
 
 def main() -> int:

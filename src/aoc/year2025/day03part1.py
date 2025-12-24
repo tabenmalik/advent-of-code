@@ -40,15 +40,11 @@ def _read_battery_banks(path: Path):
         return fobj.read().strip().split()
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-n", "--num-batteries", type=int, default=2)
-    parser.add_argument("input", type=lambda s: Path(s).absolute())
-    args = parser.parse_args(argv)
-
-    banks = _read_battery_banks(args.input)
-    print("Total output joltage: ", _total_max_joltage(banks, args.num_batteries))
+def _parse_battery_banks(input_s):
+    return input_s.strip().split()
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+def solve(input_s, num_batteries=2):
+    banks = _parse_battery_banks(input_s)
+    joltage = _total_max_joltage(banks, num_batteries)
+    return joltage

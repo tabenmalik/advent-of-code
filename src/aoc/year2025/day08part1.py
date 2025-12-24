@@ -50,7 +50,6 @@ class JunctionGraph:
         self._connection_cache = set()
 
     def connect(self, j1, j2):
-        print(j1, j2)
         self._graph[j1].add(j2)
         self._graph[j2].add(j1)
 
@@ -117,9 +116,8 @@ def distance(j1, j2):
     return sqrt((j2.x - j1.x) ** 2 + (j2.y - j1.y) ** 2 + (j2.z - j1.z) ** 2)
 
 
-def _read_junction_locations(p):
-    with open(p) as fobj:
-        point_strs = fobj.read().strip().split()
+def _parse_junction_locations(input_s):
+    point_strs = input_s.strip().split()
 
     junctions = tuple(
         Junction(*map(int, point_str.split(","))) for point_str in point_strs
@@ -128,32 +126,13 @@ def _read_junction_locations(p):
     return JunctionGraph(junctions)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--pairs", type=int)
-    parser.add_argument("input", type=lambda s: Path(s).absolute())
-    args = parser.parse_args()
-
-    junction_graph = _read_junction_locations(args.input)
+def solve(input_s, pairs=1000):
+    junction_graph = _parse_junction_locations(input_s)
     while (
-        junction_pair := junction_graph.closest_non_connected_junctions(args.pairs)
+        junction_pair := junction_graph.closest_non_connected_junctions(pairs)
     ) is not None:
         junction_graph.connect(*junction_pair)
     circuits = junction_graph.circuits()
     circuits.sort(key=len, reverse=True)
     circuit_multiply = reduce(mul, map(len, circuits[:3]), 1)
-    print(f"Multiplication of three largest circuits: {circuit_multiply}")
-
-    last_junction_pair = None
-    while (
-        junction_pair := junction_graph.closest_non_connected_junctions(1_000_000_000)
-    ) is not None:
-        junction_graph.connect(*junction_pair)
-        last_junction_pair = junction_pair
-    print(
-        f"Coordinate multiply of last connected junction: {last_junction_pair[0].x * last_junction_pair[1].x}"
-    )
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+    return circuit_multiply

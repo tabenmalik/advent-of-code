@@ -48,6 +48,12 @@ def _read_id_ranges(path: Path) -> tuple[tuple[int, int]]:
     return ranges
 
 
+def _parse_id_ranges(input_s):
+    input_s = input_s.strip().split(",")
+    ranges = [tuple(map(int, s.split("-"))) for s in input_s]
+    return ranges
+
+
 def _get_invalid_ids(id_range: tuple[int, int]) -> Generator[int, None, None]:
     for i in range(id_range[0], id_range[1] + 1):
         if _is_invalid_id(i):
@@ -60,24 +66,10 @@ def _get_actual_invalid_ids(id_range):
             yield i
 
 
-def _main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input", type=lambda s: Path(s).absolute())
-    args = parser.parse_args(argv)
-
-    id_ranges = _read_id_ranges(args.input)
+def solve(input_s):
+    id_ranges = _parse_id_ranges(input_s)
     invalid_id_sum = 0
     for id_range in id_ranges:
         invalid_id_sum += sum(_get_invalid_ids(id_range))
 
-    print(f"Sum of invalid ids: {invalid_id_sum}")
-
-    invalid_id_sum = 0
-    for id_range in id_ranges:
-        invalid_id_sum += sum(_get_actual_invalid_ids(id_range))
-
-    print(f"Sum of actual invalid ids: {invalid_id_sum}")
-
-
-if __name__ == "__main__":
-    raise SystemExit(_main())
+    return invalid_id_sum
