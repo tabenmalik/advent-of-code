@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Generator
+from collections.abc import Sequence
 from itertools import batched
 from itertools import chain
 from itertools import groupby
 from itertools import islice
 from pathlib import Path
-from typing import Generator
-from typing import Sequence
 
 EXAMPLE = """\
 11-22,95-115,998-1012,1188511880-1188511890,222220-222224,
@@ -54,7 +54,7 @@ def _parse_id_ranges(input_s):
     return ranges
 
 
-def _get_invalid_ids(id_range: tuple[int, int]) -> Generator[int, None, None]:
+def _get_invalid_ids(id_range: tuple[int, int]) -> Generator[int]:
     for i in range(id_range[0], id_range[1] + 1):
         if _is_invalid_id(i):
             yield i
