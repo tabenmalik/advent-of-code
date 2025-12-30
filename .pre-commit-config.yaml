@@ -28,3 +28,11 @@ repos:
     rev: 7.3.0
     hooks:
       - id: flake8
+        args:
+          # Matches the black default config
+          - --max-line-length
+          - "88"
+          - --extend-ignore
+          # E203: whitespace before ':'.
+          # Black sometimes inserts whitespaces around colon's for slice readability.
+          - E203
