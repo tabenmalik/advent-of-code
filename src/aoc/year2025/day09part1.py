@@ -36,13 +36,11 @@ def area(p1, p2):
 
 def _largest_rect(points):
     max_area = 0
-    max_area_pair = None
 
     for pair in combinations(points, 2):
         a = area(*pair)
         if a > max_area:
             max_area = a
-            max_area_pair = pair
 
     return max_area
 

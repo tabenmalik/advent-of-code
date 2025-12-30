@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import argparse
-from pathlib import Path
-
 EXAMPLE = """\
 .......S.......
 ...............
@@ -105,24 +102,3 @@ def solve(input_s):
     while tm.can_update():
         tm.update()
     return tm.num_splits()
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input", type=lambda s: Path(s).absolute())
-    args = parser.parse_args()
-
-    tm = _load_tachyon_manifold(args.input)
-
-    print(tm)
-    while tm.can_update():
-        tm.update()
-        print(tm)
-
-    print(f"Number of splits: {tm.num_splits()}")
-    print(f"Timelines: {tm.total_timelines()}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

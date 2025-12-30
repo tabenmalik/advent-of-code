@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from itertools import product
 from math import sqrt
-from pprint import pprint
-from time import sleep
 from typing import NamedTuple
 
 EXAMPLE = """\

@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import argparse
 from functools import reduce
 from operator import add
 from operator import mul
-from pathlib import Path
 from typing import NamedTuple
 
 EXAMPLE = """\

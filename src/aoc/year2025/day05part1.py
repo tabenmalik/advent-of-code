@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-import argparse
-from collections.abc import Sequence
-from pathlib import Path
-
 EXAMPLE = """\
 3-5
 10-14
@@ -78,23 +74,3 @@ def solve(input_s):
     id_ranges = _merge_id_ranges(id_ranges)
     fresh_ids = _find_fresh_ids(ids, id_ranges)
     return len(fresh_ids)
-
-
-def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input", type=lambda s: Path(s).absolute())
-    args = parser.parse_args(argv)
-
-    id_ranges, ids = _read_ingredient_database(args.input)
-
-    id_ranges = _merge_id_ranges(id_ranges)
-    fresh_ids = _find_fresh_ids(ids, id_ranges)
-    print(f"Number of fresh ids: {len(fresh_ids)}")
-
-    available_fresh_ids = _num_of_available_fresh_ids(id_ranges)
-    print(f"Number of available fresh ids: {available_fresh_ids}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

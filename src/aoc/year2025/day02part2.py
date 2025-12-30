@@ -21,8 +21,8 @@ def all_equal(iterable, key=None):
 
 def _is_actually_invalid_id(i: int) -> bool:
     i_str = str(i)
-    l = len(i_str)
-    for split_size in range(1, l // 2 + 1):
+    id_len = len(i_str)
+    for split_size in range(1, id_len // 2 + 1):
         if all_equal(batched(i_str, n=split_size)):
             return True
     return False

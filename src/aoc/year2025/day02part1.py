@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import argparse
 from collections.abc import Generator
-from collections.abc import Sequence
 from itertools import batched
-from itertools import chain
 from itertools import groupby
 from itertools import islice
 from pathlib import Path
@@ -32,8 +29,8 @@ def _is_invalid_id(i: int) -> bool:
 
 def _is_actually_invalid_id(i: int) -> bool:
     i_str = str(i)
-    l = len(i_str)
-    for split_size in range(1, l // 2 + 1):
+    id_len = len(i_str)
+    for split_size in range(1, id_len // 2 + 1):
         if all_equal(batched(i_str, n=split_size)):
             return True
     return False
