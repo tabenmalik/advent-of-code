@@ -1,0 +1,5 @@
+= Advent of Code Solutions
+
+Welcome to my Advent of Code solutions!
+https://adventofcode.com/[Advent of Code] is a yearly December event hosted by Eric Wastl
+where code exercises are published throughout the month in increasing difficulty.
