@@ -36,7 +36,7 @@ def _is_actually_invalid_id(i: int) -> bool:
     return False
 
 
-def _read_id_ranges(path: Path) -> tuple[tuple[int, int]]:
+def _read_id_ranges(path: Path) -> list[tuple[int, ...]]:
     with open(path) as fobj:
         range_strings = fobj.read().strip().split(",")
 

@@ -16,7 +16,7 @@ L82
 """
 
 
-def _parse_rotations(s: str) -> tuple[int]:
+def _parse_rotations(s: str) -> tuple[int, ...]:
     rot_strs = [rot.replace("R", "").replace("L", "-") for rot in s.strip().split()]
     return tuple(map(int, rot_strs))
 

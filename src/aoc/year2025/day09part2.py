@@ -9,6 +9,7 @@ from itertools import combinations
 from itertools import pairwise
 from itertools import product
 from math import copysign
+from typing import Any
 from typing import NamedTuple
 
 import pytest
@@ -294,7 +295,7 @@ def solve(input_s) -> int:
     )
     perimeter_point_set = set(perimeter_points)
 
-    chunk_grid = []
+    chunk_grid: list[Any] = []
     for x_range in pairwise(x_lines):
         chunk_grid.append([])
         for y_range in pairwise(y_lines):
@@ -338,6 +339,9 @@ def solve(input_s) -> int:
 
             if first_xy is not None and last_xy is not None:
                 break
+
+        assert first_xy is not None
+        assert last_xy is not None
 
         for x, y in product(
             range(first_xy[0], last_xy[0] + 1), range(first_xy[1], last_xy[1])
