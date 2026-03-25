@@ -3,3 +3,20 @@
 Welcome to my Advent of Code solutions!
 https://adventofcode.com/[Advent of Code] is a yearly December event hosted by Eric Wastl
 where code exercises are published throughout the month in increasing difficulty.
+
+
+=== Session Cookie
+
+Fetching data or submitting answers to Advent of Code requires a session cookie to authenticate
+all requests. Log in to Advent of Code, open up the browser's developer tools, find the "session"
+cookie and copy the value to `$XDG_DATA_HOME/aoc/session_cookie.txt`
+
+.Example session_cookie.txt
+----
+session=1234abcd
+----
+
+=== Inputs
+
+Problem inputs are not stored in this repo to respect the policy of Advent of Code.
+Instead, input files are fetched and cached under `$XDG_CACHE_HOME/aoc`.

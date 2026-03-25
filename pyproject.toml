@@ -4,12 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aoc"
-version = "0.1.0"
+version = "0.0.0"
 authors = [
     { name="Taben Malik", email="tabenjmalik@gmail.com" },
 ]
-description = "Solutions to Advent of Code problems."
+description = "Advent of Code helpers"
 
-[project.scripts]
-aoc-get = "aoc.aoc:_get"
-aoc-run = "aoc.aoc:_run"
+[tool.setuptools]
+py-modules = ["aoc"]
