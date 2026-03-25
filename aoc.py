@@ -4,7 +4,10 @@ Supporting functions for Advent of Code development.
 
 from __future__ import annotations
 
+import argparse
 import os
+from collections.abc import Callable
+from collections.abc import Sequence
 from pathlib import Path
 from urllib import request
 
@@ -54,3 +57,19 @@ def get_input(year: int, day: int) -> str:
         tmp_cache_file.replace(cache_file)
 
     return cache_file.read_text()
+
+
+def problem_entry_point(
+    func: Callable[[str], object],
+    year: int,
+    day: int,
+    argv: Sequence[str] | None = None,
+) -> int:
+    parser = argparse.ArgumentParser()
+    parser.parse_args(argv)
+
+    problem_input = get_input(year, day)
+    solution = str(func(problem_input))
+
+    print(solution)
+    return 0
