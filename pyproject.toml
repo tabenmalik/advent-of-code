@@ -12,3 +12,6 @@ description = "Advent of Code helpers"
 
 [tool.setuptools]
 py-modules = ["aoc"]
+
+[tool.coverage.run]
+plugins = ["covdefaults"]

@@ -5,7 +5,7 @@ import aoc
 
 def first_time_in_basement(directions: str) -> int:
     floor = 0
-    for index, direction in enumerate(directions):
+    for index, direction in enumerate(directions):  # pragma: no branch
         floor += 1 if direction == "(" else -1
         if floor == -1:
             break

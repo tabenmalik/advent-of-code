@@ -60,3 +60,11 @@ def test_get_input_successful_request(getup):
         "this is downloaded input\n" "another line of input\n"
     )
     assert problem_input == ("this is downloaded input\n" "another line of input\n")
+
+
+def test_successful_problem_entry_point(getup):
+    cached_input = getup.cache / "2049-02.txt"
+    cached_input.write_text("hello\n")
+    solver_function = MagicMock()
+    assert 0 == aoc.problem_entry_point(solver_function, 2049, 2, tuple())
+    assert solver_function.called
