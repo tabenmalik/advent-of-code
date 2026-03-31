@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+import subprocess
 from pathlib import Path
 from typing import NamedTuple
 from unittest.mock import MagicMock
@@ -68,3 +70,16 @@ def test_successful_problem_entry_point(getup):
     solver_function = MagicMock()
     assert 0 == aoc.problem_entry_point(solver_function, 2049, 2, tuple())
     assert solver_function.called
+
+
+def test_start_problem(capsys, tmp_path):
+    assert 0 == aoc.start_problem(("2025", "2"))
+    captured = capsys.readouterr()
+    assert re.search(r"problem_entry_point\(solve, 2025, 2\)", captured.out)
+
+    # don't care about the exact output of start_problem
+    # but it needs to pass all of my linting checks
+    tmp_file = tmp_path / "start.py"
+    tmp_file.write_text(captured.out)
+    cp = subprocess.run(["pre-commit", "run", "--files", str(tmp_file)])
+    assert cp.returncode == 0

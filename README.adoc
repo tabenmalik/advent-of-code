@@ -40,3 +40,10 @@ Each problem is runnable as a script.
 $ python ./2015/d1p1.py
 280
 ----
+
+When starting a new day, use `aoc-start-problem` to generate a template script.
+
+[source]
+----
+$ aoc-start-problem 2015 3 > ./2015/d3p1.py
+----

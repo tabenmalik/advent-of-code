@@ -59,6 +59,43 @@ def get_input(year: int, day: int) -> str:
     return cache_file.read_text()
 
 
+def start_problem(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("year", type=int)
+    parser.add_argument("day", type=int)
+    args = parser.parse_args(argv)
+
+    print(
+        "from __future__ import annotations\n"
+        "\n"
+        "import aoc\n"
+        "\n"
+        "\n"
+        "def solve(inp: str) -> str:\n"
+        '    return ""\n'
+        "\n"
+        "\n"
+        'if __name__ == "__main__":\n'
+        "    raise SystemExit(\n"
+        f"        aoc.problem_entry_point(solve, {args.year}, {args.day}),\n"
+        "    )\n"
+        "\n"
+        "\n"
+        "import pytest  # noqa: E402\n"
+        "\n"
+        "\n"
+        "@pytest.mark.parametrize(\n"
+        '    "inp,result",\n'
+        "    [\n"
+        '        ("blah", "")\n'
+        "    ]\n"
+        ")\n"
+        "def test_solve(inp, result):\n"
+        "    assert result == solve(inp)"
+    )
+    return 0
+
+
 def problem_entry_point(
     func: Callable[[str], object],
     year: int,
