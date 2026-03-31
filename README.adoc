@@ -19,4 +19,24 @@ session=1234abcd
 === Inputs
 
 Problem inputs are not stored in this repo to respect the policy of Advent of Code.
-Instead, input files are fetched and cached under `$XDG_CACHE_HOME/aoc`.
+Instead, input files are fetched and cached under `$XDG_CACHE_HOME/aoc`. Fetching
+and caching the problem inputs happens automatically when running a problem.
+
+=== Setup and Run
+
+.Setup
+[source]
+----
+$ virtualenv ./venv
+$ . ./venv/bin/activate
+$ pip install .
+----
+
+Each problem is runnable as a script.
+
+.Example
+[source]
+----
+$ python ./2015/d1p1.py
+280
+----
