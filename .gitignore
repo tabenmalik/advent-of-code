@@ -1,5 +1,5 @@
-inputs/
-cookies.txt
-build/
 *.egg-info
 __pycache__/
+build/
+cookies.txt
+inputs/
