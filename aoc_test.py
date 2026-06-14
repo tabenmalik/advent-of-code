@@ -72,6 +72,31 @@ def test_successful_problem_entry_point(getup):
     assert solver_function.called
 
 
+def test_entry(getup):
+    cached_input = getup.cache / "2049-02.txt"
+    cached_input.write_text("hello\n")
+    part1 = MagicMock()
+    part2 = MagicMock()
+    assert 0 == aoc.entry(part1, part2, 2049, 2, ())
+    assert part1.called
+    assert not part2.called
+
+    part1.reset_mock()
+    part2.reset_mock()
+    assert 0 == aoc.entry(part1, part2, 2049, 2, ("--part2",))
+    assert not part1.called
+    assert part2.called
+
+    part1.reset_mock()
+    part2.reset_mock()
+    assert 0 == aoc.entry(part1, None, 2049, 2, ())
+    assert part1.called
+
+    part1.reset_mock()
+    part2.reset_mock()
+    assert 1 == aoc.entry(part1, None, 2049, 2, ("--part2",))
+
+
 def test_start_problem(capsys, tmp_path):
     assert 0 == aoc.start_problem(("2025", "2"))
     captured = capsys.readouterr()

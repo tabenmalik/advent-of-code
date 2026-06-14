@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from collections.abc import Callable
 from collections.abc import Sequence
 from pathlib import Path
@@ -93,6 +94,33 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         "def test_solve(inp, result):\n"
         "    assert result == solve(inp)"
     )
+    return 0
+
+
+def entry(
+    part1: Callable[[str], object],
+    part2: Callable[[str], object] | None,
+    year: int,
+    day: int,
+    argv: Sequence[str] | None = None,
+) -> int:
+    parser = argparse.ArgumentParser()
+    part = parser.add_mutually_exclusive_group()
+    part.add_argument("-p2", "--part2", action="store_true")
+
+    args = parser.parse_args(argv)
+
+    problem_input = get_input(year, day)
+
+    if args.part2:
+        if part2 is None:
+            print("There is no part 2 for this problem.", file=sys.stderr)
+            return 1
+        else:
+            print(part2(problem_input))
+    else:
+        print(part1(problem_input))
+
     return 0
 
 
