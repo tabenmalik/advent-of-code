@@ -8,37 +8,29 @@ repos:
       - id: file-contents-sorter
         files: \.gitignore$
         args: [--unique]
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 26.5.1
+  - repo: https://github.com/asottile/reorder-python-imports
+    rev: "v3.17.0"
     hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/isort
-    rev: 9.0.0b1
+    -   id: reorder-python-imports
+        args: [--py310-plus, --add-import, 'from __future__ import annotations']
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: "v4.0.0"
     hooks:
-      - id: isort
-        args:
-          - --add-import
-          - "from __future__ import annotations"
-          - --force-single-line-imports
-          - --profile
-          - black
+    -   id: add-trailing-comma
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.21.2
     hooks:
       - id: pyupgrade
         args: [--py313-plus]
+  - repo: https://github.com/hhatto/autopep8
+    rev: "v2.3.2"
+    hooks:
+    -   id: autopep8
   - repo: https://github.com/PyCQA/flake8
     rev: 7.3.0
     hooks:
       - id: flake8
-        args:
-          # Matches the black default config
-          - --max-line-length
-          - "88"
-          - --extend-ignore
-          # E203: whitespace before ':'.
-          # Black sometimes inserts whitespaces around colon's for slice readability.
-          - E203
+        args: [--max-line-length, "88"]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: 'v2.3.0'
     hooks:

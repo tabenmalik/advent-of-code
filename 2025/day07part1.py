@@ -83,8 +83,12 @@ class TachyonManifold:
                 self._beams.add(below_right)
                 self._beams.add(below_left)
                 t = self._timelines.pop(beam_loc)
-                self._timelines[below_right] = self._timelines.pop(below_right, 0) + t
-                self._timelines[below_left] = self._timelines.pop(below_left, 0) + t
+                self._timelines[below_right] = self._timelines.pop(
+                    below_right, 0,
+                ) + t
+                self._timelines[below_left] = self._timelines.pop(
+                    below_left, 0,
+                ) + t
             # Another beam below
             elif self[below_loc] == "|":
                 self._beams.remove(beam_loc)

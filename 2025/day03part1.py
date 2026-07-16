@@ -13,14 +13,16 @@ EXAMPLE = """\
 def _max_joltage_batteries(bank: str, num_batteries: int):
     joltage_index = 0
     for joltage in range(9, 0, -1):
-        joltage_index = bank.find(str(joltage), 0, len(bank) - num_batteries + 1)
+        joltage_index = bank.find(
+            str(joltage), 0, len(bank) - num_batteries + 1,
+        )
         if joltage_index != -1:
             break
 
     if num_batteries == 1:
         return bank[joltage_index]
     return bank[joltage_index] + _max_joltage_batteries(
-        bank[joltage_index + 1 :], num_batteries - 1
+        bank[joltage_index + 1:], num_batteries - 1,
     )
 
 

@@ -12,7 +12,7 @@ def eggnog_sets(container_doc: str, eggnog_liters: int = 150) -> int:
     for r in range(1, len(containers)):
         combo_sizes = map(sum, combinations(containers, r))
         combos_right_size = tuple(
-            filter(lambda combo: combo == eggnog_liters, combo_sizes)
+            filter(lambda combo: combo == eggnog_liters, combo_sizes),
         )
         container_combos += len(combos_right_size)
 

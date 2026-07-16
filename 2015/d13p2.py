@@ -7,7 +7,7 @@ from itertools import permutations
 import aoc
 
 RE_HAPPY = re.compile(
-    r"(\w*) would (gain|lose) (\d*) happiness units by sitting next to (\w*)."
+    r"(\w*) would (gain|lose) (\d*) happiness units by sitting next to (\w*).",
 )
 
 HappyMap = dict[tuple[str, str], int]

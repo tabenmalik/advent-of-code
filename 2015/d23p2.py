@@ -13,31 +13,31 @@ class Registers(NamedTuple):
 
 
 def hlf(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     return regs._replace(**{arg: getattr(regs, arg) // 2}), pc + 1
 
 
 def tpl(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     return regs._replace(**{arg: getattr(regs, arg) * 3}), pc + 1
 
 
 def inc(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     return regs._replace(**{arg: getattr(regs, arg) + 1}), pc + 1
 
 
 def jmp(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     return regs, pc + int(arg)
 
 
 def jie(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     reg, offset = arg.split(", ")
     if getattr(regs, reg) % 2 == 0:
@@ -47,7 +47,7 @@ def jie(
 
 
 def jio(
-    arg: str, regs: Registers, pc: ProgramCounter
+    arg: str, regs: Registers, pc: ProgramCounter,
 ) -> tuple[Registers, ProgramCounter]:
     reg, offset = arg.split(", ")
     if getattr(regs, reg) == 1:

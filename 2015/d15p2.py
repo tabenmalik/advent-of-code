@@ -14,7 +14,7 @@ RE_INGREDIENT = re.compile(
     r"durability (?P<durability>-?\d+), "
     r"flavor (?P<flavor>-?\d+), "
     r"texture (?P<texture>-?\d+), "
-    r"calories (?P<calories>-?\d+)"
+    r"calories (?P<calories>-?\d+)",
 )
 
 
@@ -43,7 +43,7 @@ Recipe = set[tuple[Ingredient, Teaspoons]]
 
 
 def all_recipes(
-    ingredients: tuple[Ingredient, ...], total: Teaspoons = 100
+    ingredients: tuple[Ingredient, ...], total: Teaspoons = 100,
 ) -> Iterator[Recipe]:
     if len(ingredients) == 1 and total > 0:
         yield {(ingredients[0], total)}
@@ -75,9 +75,14 @@ def recipe_calories(recipe: Recipe):
 
 
 def solve(inp: str) -> int:
-    ingredients = tuple(Ingredient.from_txt(line) for line in inp.strip().splitlines())
+    ingredients = tuple(
+        Ingredient.from_txt(line)
+        for line in inp.strip().splitlines()
+    )
     recipes_500_cal = filter(
-        lambda recipe: recipe_calories(recipe) == 500, all_recipes(ingredients)
+        lambda recipe: recipe_calories(
+            recipe,
+        ) == 500, all_recipes(ingredients),
     )
     return max(map(rate_recipe, recipes_500_cal))
 

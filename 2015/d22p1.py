@@ -127,7 +127,9 @@ def shield(game: GameState) -> GameState:
     new_total_mana = game.total_mana + SHIELD_COST
     player = sub_mana(game.player, SHIELD_COST)
     player = player._replace(armor=SHIELD_ARMOR)
-    game = game._replace(player=player, total_mana=new_total_mana, shield=SHIELD_TURNS)
+    game = game._replace(
+        player=player, total_mana=new_total_mana, shield=SHIELD_TURNS,
+    )
     return game
 
 
@@ -135,7 +137,9 @@ def poison(game: GameState) -> GameState:
     assert game.poison == 0
     new_total_mana = game.total_mana + POISON_COST
     player = sub_mana(game.player, POISON_COST)
-    game = game._replace(player=player, total_mana=new_total_mana, poison=POISON_TURNS)
+    game = game._replace(
+        player=player, total_mana=new_total_mana, poison=POISON_TURNS,
+    )
     return game
 
 
@@ -144,7 +148,7 @@ def recharge(game: GameState) -> GameState:
     new_total_mana = game.total_mana + RECHARGE_COST
     player = sub_mana(game.player, RECHARGE_COST)
     game = game._replace(
-        player=player, total_mana=new_total_mana, recharge=RECHARGE_TURNS
+        player=player, total_mana=new_total_mana, recharge=RECHARGE_TURNS,
     )
     return game
 
@@ -174,7 +178,10 @@ def effects(game: GameState) -> GameState:
 
 
 def boss_attack(game: GameState) -> GameState:
-    new_player_hp = max(0, game.player.hp - game.boss.damage + game.player.armor)
+    new_player_hp = max(
+        0, game.player.hp -
+        game.boss.damage + game.player.armor,
+    )
     new_player = game.player._replace(hp=new_player_hp)
     game = game._replace(player=new_player)
     return game

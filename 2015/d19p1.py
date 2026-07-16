@@ -22,7 +22,7 @@ def count_molecules(inp: str) -> int:
         for m in re.finditer(replacement.og, start_molecule):
             start, stop = m.span()
             new_molecule = "".join(
-                [start_molecule[:start], replacement.sub, start_molecule[stop:]]
+                [start_molecule[:start], replacement.sub, start_molecule[stop:]],
             )
             new_molecules.add(new_molecule)
 

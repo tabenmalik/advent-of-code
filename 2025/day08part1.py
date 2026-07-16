@@ -43,7 +43,10 @@ class JunctionGraph:
     def __init__(self, junctions):
         # keys are nodes, values are connections to other nodes
         self._graph = {j: set() for j in junctions}
-        self._shortest_distances = [(j1, j2) for j1, j2 in combinations(junctions, 2)]
+        self._shortest_distances = [
+            (j1, j2)
+            for j1, j2 in combinations(junctions, 2)
+        ]
         self._shortest_distances.sort(key=lambda pair: distance(*pair))
         self._connection_cache = set()
 
