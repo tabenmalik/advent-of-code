@@ -48,7 +48,10 @@ class TachyonManifold:
         total = 0
         for row in range(len(self._data)):
             for col in range(len(self._data[0])):
-                if self._data[row][col] == "^" and self._data[row - 1][col] == "|":
+                if (
+                    self._data[row][col] == "^"
+                    and self._data[row - 1][col] == "|"
+                ):
                     total += 1
         return total
 

@@ -116,13 +116,29 @@ import pytest  # noqa: E402
     "player, boss, player_wins",
     [
         # player deals damage below 0
-        (Player(hp=8, damage=5, armor=5), Player(hp=12, damage=7, armor=2), True),
+        (
+            Player(hp=8, damage=5, armor=5),
+            Player(hp=12, damage=7, armor=2),
+            True,
+        ),
         # player deals damage to exactly 0
-        (Player(hp=8, damage=12, armor=5), Player(hp=12, damage=7, armor=0), True),
+        (
+            Player(hp=8, damage=12, armor=5),
+            Player(hp=12, damage=7, armor=0),
+            True,
+        ),
         # boss deals damage to below 0
-        (Player(hp=8, damage=1, armor=0), Player(hp=12, damage=9, armor=2), False),
+        (
+            Player(hp=8, damage=1, armor=0),
+            Player(hp=12, damage=9, armor=2),
+            False,
+        ),
         # boss deals damage to exactly 0
-        (Player(hp=8, damage=1, armor=0), Player(hp=12, damage=8, armor=2), False),
+        (
+            Player(hp=8, damage=1, armor=0),
+            Player(hp=12, damage=8, armor=2),
+            False,
+        ),
     ],
 )
 def test_battle(player, boss, player_wins):

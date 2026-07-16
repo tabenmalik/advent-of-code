@@ -19,7 +19,10 @@ def _remove_rolls_by_forklift(grid):
     new_grid = copy.deepcopy(grid)
     for row in range(len(grid)):
         for col in range(len(grid[0])):
-            if grid[row][col] == "@" and _can_be_accessed_by_forklift(grid, row, col):
+            if (
+                grid[row][col] == "@"
+                and _can_be_accessed_by_forklift(grid, row, col)
+            ):
                 new_grid[row][col] = "."
             else:
                 new_grid[row][col] = grid[row][col]

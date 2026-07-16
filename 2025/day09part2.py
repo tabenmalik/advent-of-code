@@ -310,7 +310,8 @@ def solve(input_s) -> int:
     flood_fill(chunk_grid)
 
     rectangles = [
-        Rectangle.from_two_points(p1, p3) for p1, p3 in combinations(red_tiles, 2)
+        Rectangle.from_two_points(p1, p3)
+        for p1, p3 in combinations(red_tiles, 2)
     ]
     rectangles.sort(key=Rectangle.area, reverse=True)
     for rect in rectangles:
@@ -334,7 +335,8 @@ def solve(input_s) -> int:
 
         first_xy = None
         last_xy = None
-        for x, y in product(range(len(chunk_grid)), range(len(chunk_grid[0]))):
+        xys = product(range(len(chunk_grid)), range(len(chunk_grid[0])))
+        for x, y in xys:
             if chunk_grid[x][y] == corner_chunk_ind[0]:
                 first_xy = (x, y)
             elif chunk_grid[x][y] == corner_chunk_ind[1]:
@@ -347,7 +349,8 @@ def solve(input_s) -> int:
         assert last_xy is not None
 
         for x, y in product(
-            range(first_xy[0], last_xy[0] + 1), range(first_xy[1], last_xy[1]),
+            range(first_xy[0], last_xy[0] + 1),
+            range(first_xy[1], last_xy[1]),
         ):
             print(chunk_grid[x][y])
             if chunk_grid[x][y].outside:
@@ -377,8 +380,8 @@ def test_solve(input_s):
 #        (Polygon.from_csv("0,0\n3,0\n3,3\n0,3\n"), Point(3, 2)),
 #        (Polygon.from_csv("0,0\n3,0\n3,3\n0,3\n"), Point(2, 0)),
 #        (Polygon.from_csv("0,0\n3,0\n3,3\n0,3\n"), Point(0, 0)),
-#        (Polygon.from_csv("0,0\n4,0\n4,3\n2,3\n2,1\n1,1\n1,3\n0,3\n"), Point(3, 2)),
-#        (Polygon.from_csv("0,0\n4,0\n4,3\n2,3\n2,1\n1,1\n1,3\n0,3\n"), Point(3, 1)),
+#        (Polygon.from_csv("0,0\n4,0\n4,3\n2,3\n2,1\n1,1\n1,3\n0,3\n"), Point(3, 2)),  # noqa: E501
+#        (Polygon.from_csv("0,0\n4,0\n4,3\n2,3\n2,1\n1,1\n1,3\n0,3\n"), Point(3, 1)),  # noqa: E501
 #    ],
 # )
 # def test_contains_point(polygon, point):

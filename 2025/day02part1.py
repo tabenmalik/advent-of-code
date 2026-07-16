@@ -24,7 +24,10 @@ def all_equal(iterable, key=None):
 def _is_invalid_id(i: int) -> bool:
     i_str = str(i)
     half_length = len(i_str) // 2
-    return (len(i_str) % 2 == 0) and (i_str[:half_length] == i_str[half_length:])
+    return (
+        (len(i_str) % 2 == 0)
+        and (i_str[:half_length] == i_str[half_length:])
+    )
 
 
 def _is_actually_invalid_id(i: int) -> bool:

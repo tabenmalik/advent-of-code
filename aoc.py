@@ -16,7 +16,9 @@ def xdg_cache_home() -> Path:
 
 
 def xdg_data_home() -> Path:
-    return Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+    return Path(
+        os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"),
+    )
 
 
 def _fetch_input(year: int, day: int) -> str:
@@ -30,7 +32,8 @@ def _fetch_input(year: int, day: int) -> str:
     session_cookie = cookie_file.read_text().strip()
     headers = {"Cookie": f"{session_cookie}", "User-Agent": "Taben Malik"}
     req = request.Request(
-        f"https://www.adventofcode.com/{year}/day/{day}/input", headers=headers,
+        f"https://www.adventofcode.com/{year}/day/{day}/input",
+        headers=headers,
     )
     resp = request.urlopen(req)
     return resp.read().decode()

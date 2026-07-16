@@ -53,7 +53,9 @@ class Lights:
         self._grid = buffer_grid(tuple(map(tuple, new_grid)))
 
     def num_on(self):
-        return len(tuple(True for row in self._grid for item in row if item == "#"))
+        return len(
+            tuple(True for row in self._grid for item in row if item == "#"),
+        )
 
 
 def conway_game_of_lights(init_config: str, steps: int = 100) -> int:

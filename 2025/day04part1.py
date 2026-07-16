@@ -50,7 +50,10 @@ def _num_rolls_access_by_forklift(grid):
     count = 0
     for row in range(1, len(grid) - 1):
         for col in range(1, len(grid[0]) - 1):
-            if grid[row][col] == "@" and _can_be_accessed_by_forklift(grid, row, col):
+            if (
+                grid[row][col] == "@"
+                and _can_be_accessed_by_forklift(grid, row, col)
+            ):
                 count += 1
     return count
 

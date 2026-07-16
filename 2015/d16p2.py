@@ -39,7 +39,10 @@ def determine_sue(sue_doc: str) -> int:
         if "trees" in sue and sue["trees"] <= mfcsam_result["trees"]:
             continue
 
-        if "pomeranians" in sue and sue["pomeranians"] >= mfcsam_result["pomeranians"]:
+        if (
+            "pomeranians" in sue
+            and sue["pomeranians"] >= mfcsam_result["pomeranians"]
+        ):
             continue
 
         if "goldfish" in sue and sue["goldfish"] >= mfcsam_result["goldfish"]:

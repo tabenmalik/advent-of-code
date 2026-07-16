@@ -83,7 +83,8 @@ def race_reindeer(lines: str, seconds: int = 2503) -> int:
     )
 
     reindeer_race = tuple(
-        ReindeerRaceState(reindeer, reindeer.fly_duration) for reindeer in reindeers
+        ReindeerRaceState(reindeer, reindeer.fly_duration)
+        for reindeer in reindeers
     )
 
     for _ in range(seconds):

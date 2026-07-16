@@ -39,7 +39,11 @@ class Junction(NamedTuple):
         return cls(*map(int, s.strip().split(",")))
 
     def distance(self, j):
-        return sqrt((j.x - self.x) ** 2 + (j.y - self.y) ** 2 + (j.z - self.z) ** 2)
+        return sqrt(
+            (j.x - self.x) ** 2
+            + (j.y - self.y) ** 2
+            + (j.z - self.z) ** 2,
+        )
 
 
 def _condense_circuits(junction_graph):
@@ -73,7 +77,10 @@ def _last_connected_junctions(junctions):
         else:
             junction_graph.append({j1, j2})
 
-        if len(junction_graph) == 1 and len(junction_graph[0]) == len(junctions):
+        if (
+            len(junction_graph) == 1
+            and len(junction_graph[0]) == len(junctions)
+        ):
             break
 
     return j1, j2
