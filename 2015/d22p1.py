@@ -41,7 +41,9 @@ def heal(player: Player, hp: int) -> Player:
     return player._replace(hp=player.hp + hp)
 
 
-def attack(attacker: Player, attacked: Player, bonus_damage: int = 0) -> Player:
+def attack(
+    attacker: Player, attacked: Player, bonus_damage: int = 0,
+) -> Player:
     hp = attacked.hp + attacked.armor - attacker.damage - bonus_damage
     hp = max(0, hp)
     return attacked._replace(hp=hp)

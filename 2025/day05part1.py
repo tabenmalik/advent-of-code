@@ -29,7 +29,8 @@ def _parse_ingredient_database(input_s):
             id_strs.append(line)
 
     id_ranges = [
-        tuple(map(int, id_range_str.split("-"))) for id_range_str in id_range_strs
+        tuple(map(int, id_range_str.split("-")))
+        for id_range_str in id_range_strs
     ]
 
     ids = list(map(int, id_strs))

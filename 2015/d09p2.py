@@ -43,7 +43,8 @@ def find_longest_distance(distances: str) -> int:
     # brute force
     all_locations = {key[0] for key in network}
     all_route_distances = (
-        distance_of_route(route, network) for route in permutations(all_locations)
+        distance_of_route(route, network)
+        for route in permutations(all_locations)
     )
     longest_distance = max(all_route_distances)
     return longest_distance

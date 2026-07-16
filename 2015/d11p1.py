@@ -24,7 +24,7 @@ RE_INVALID_CHARS = re.compile("[iol]")
 RE_PAIRS = re.compile(r"(([a-z])\2)")
 
 RE_STRAIGHT = re.compile(
-    "(" + "|".join(map("".join, sliding_window(string.ascii_lowercase, 3))) + ")",
+    "(" + "|".join(map("".join, sliding_window(string.ascii_lowercase, 3))) + ")",  # noqa: E501
 )
 
 

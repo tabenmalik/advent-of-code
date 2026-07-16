@@ -12,7 +12,8 @@ def _parse_problems_correctly(input_s):
     worksheet = "\n".join(map("".join, zip(*lines)))
 
     problems = []
-    for problem_set in worksheet.split(f"\n{' '*len(worksheet.split('\n')[0])}\n"):
+    first = worksheet.split('\n')[0]
+    for problem_set in worksheet.split(f"\n{' '*len(first)}\n"):
         op = problem_set.split("\n")[0][-1]
         numbers = tuple(int(line[:-1]) for line in problem_set.split("\n"))
         problems.append(Problem(op, numbers))

@@ -7,7 +7,7 @@ from itertools import permutations
 import aoc
 
 RE_HAPPY = re.compile(
-    r"(\w*) would (gain|lose) (\d*) happiness units by sitting next to (\w*).",
+    r"(\w*) would (gain|lose) (\d*) happiness units by sitting next to (\w*).",  # noqa: E501
 )
 
 HappyMap = dict[tuple[str, str], int]
@@ -26,7 +26,9 @@ def parse_relations(relations: str) -> HappyMap:
     return happy_map
 
 
-def compute_happy_score(arrangement: tuple[str, ...], happy_map: HappyMap) -> int:
+def compute_happy_score(
+    arrangement: tuple[str, ...], happy_map: HappyMap,
+) -> int:
     total_happiness = 0
     for pair in pairwise(arrangement):
         total_happiness += happy_map[pair]

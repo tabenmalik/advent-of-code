@@ -47,7 +47,9 @@ def equal_split(
     return _split_helper()
 
 
-def partitions(presents: Presents, size: int) -> Generator[tuple[Presents, Presents]]:
+def partitions(
+    presents: Presents, size: int,
+) -> Generator[tuple[Presents, Presents]]:
     n = len(presents)
     if size > n:
         return

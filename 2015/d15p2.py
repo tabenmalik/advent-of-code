@@ -62,7 +62,8 @@ def rate_recipe(recipe: Recipe) -> int:
             lambda x: max(x, 0),
             (
                 sum(
-                    ingredient[category] * teaspoons for ingredient, teaspoons in recipe
+                    ingredient[category] * teaspoons
+                    for ingredient, teaspoons in recipe
                 )
                 for category in range(0, 4)
             ),
@@ -71,7 +72,10 @@ def rate_recipe(recipe: Recipe) -> int:
 
 
 def recipe_calories(recipe: Recipe):
-    return sum(ingredient.calories * teaspoons for ingredient, teaspoons in recipe)
+    return sum(
+        ingredient.calories * teaspoons
+        for ingredient, teaspoons in recipe
+    )
 
 
 def solve(inp: str) -> int:
@@ -100,11 +104,11 @@ import pytest  # noqa: E402
     "line,ingredient",
     [
         (
-            "Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8",
+            "Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8",  # noqa: E501
             Ingredient(-1, -2, 6, 3, 8),
         ),
         (
-            "Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3",
+            "Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3",  # noqa: E501
             Ingredient(2, 3, -2, -1, 3),
         ),
         (
@@ -157,7 +161,7 @@ def test_all_recipes(ingredients, num_recipes):
     [
         (
             "Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8\n"  # noqa: E501
-            "Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3\n",
+            "Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3\n",  # noqa: E501
             57600000,
         ),
         (aoc.get_input(2015, 15), 11171160),

@@ -9,7 +9,9 @@ import aoc
 Presents = tuple[int, ...]
 
 
-def equal_split(presents: Presents, target: int) -> tuple[Presents, Presents] | None:
+def equal_split(
+    presents: Presents, target: int,
+) -> tuple[Presents, Presents] | None:
     # don't care if there's multiple possible arrangements.
     # all arrangements of presents 2 and 3 are equivalent since
     # the quantum entanglement of the passenger presents would be the same
@@ -18,7 +20,11 @@ def equal_split(presents: Presents, target: int) -> tuple[Presents, Presents] | 
         return None
 
     def _split_helper(
-        presents2=(), present2_sum=0, presents3=(), present3_sum=0, presents_index=0,
+        presents2=(),
+        present2_sum=0,
+        presents3=(),
+        present3_sum=0,
+        presents_index=0,
     ):
         # breakpoint()
         if presents_index == len(presents):
@@ -49,7 +55,9 @@ def equal_split(presents: Presents, target: int) -> tuple[Presents, Presents] | 
     return _split_helper()
 
 
-def partitions(presents: Presents, size: int) -> Generator[tuple[Presents, Presents]]:
+def partitions(
+    presents: Presents, size: int,
+) -> Generator[tuple[Presents, Presents]]:
     n = len(presents)
     if size > n:
         return

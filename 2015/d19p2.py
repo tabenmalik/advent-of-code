@@ -36,7 +36,8 @@ def build_molecule(inp: str) -> int:
     # molecules to check will decrease.
     repl_inp, end_molecule = inp.strip().split("\n\n")
     repls = tuple(
-        Replacement(*reversed(line.split(" => "))) for line in repl_inp.split("\n")
+        Replacement(*reversed(line.split(" => ")))
+        for line in repl_inp.split("\n")
     )
     repls = tuple(sorted(repls, key=lambda repl: len(repl.og), reverse=True))
 
