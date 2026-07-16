@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from aoc.year2025.day06part1 import Problem
 from aoc.year2025.day06part1 import _compute_problem
+from aoc.year2025.day06part1 import Problem
 
 
 def _parse_problems_correctly(input_s):

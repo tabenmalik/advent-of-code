@@ -10,7 +10,7 @@ from typing import NamedTuple
 import aoc
 
 RE_INSTRUCTION = re.compile(
-    r"^(?P<inst>turn on|toggle|turn off) (?P<row1>\d+),(?P<col1>\d+) through (?P<row2>\d+),(?P<col2>\d+)$"  # noqa: E501
+    r"^(?P<inst>turn on|toggle|turn off) (?P<row1>\d+),(?P<col1>\d+) through (?P<row2>\d+),(?P<col2>\d+)$",  # noqa: E501
 )
 
 
@@ -47,11 +47,23 @@ def parse_instruction(line: str) -> LightOp:
     else:
         raise NotImplementedError()
 
-    row_step = int(copysign(1, int(m.group("row2")) - int(m.group("row1")) + 1))
-    rows = range(int(m.group("row1")), int(m.group("row2")) + row_step, row_step)
+    row_step = int(
+        copysign(1, int(m.group("row2")) - int(m.group("row1")) + 1),
+    )
+    rows = range(
+        int(m.group("row1")), int(
+            m.group("row2"),
+        ) + row_step, row_step,
+    )
 
-    col_step = int(copysign(1, int(m.group("col2")) - int(m.group("col1")) + 1))
-    cols = range(int(m.group("col1")), int(m.group("col2")) + col_step, col_step)
+    col_step = int(
+        copysign(1, int(m.group("col2")) - int(m.group("col1")) + 1),
+    )
+    cols = range(
+        int(m.group("col1")), int(
+            m.group("col2"),
+        ) + col_step, col_step,
+    )
 
     return LightOp(op, rows, cols)
 

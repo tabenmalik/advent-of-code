@@ -18,7 +18,7 @@ def equal_split(presents: Presents, target: int) -> tuple[Presents, Presents] | 
         return None
 
     def _split_helper(
-        presents2=(), present2_sum=0, presents3=(), present3_sum=0, presents_index=0
+        presents2=(), present2_sum=0, presents3=(), present3_sum=0, presents_index=0,
     ):
         # breakpoint()
         if presents_index == len(presents):
@@ -43,7 +43,7 @@ def equal_split(presents: Presents, target: int) -> tuple[Presents, Presents] | 
             present3_sum += presents[i]
 
         return _split_helper(
-            presents2, present2_sum, presents3, present3_sum, len(presents)
+            presents2, present2_sum, presents3, present3_sum, len(presents),
         )
 
     return _split_helper()
@@ -137,7 +137,10 @@ def test_partitions(presents, presents1_size, results):
 
 @pytest.mark.parametrize(
     "inp,result",
-    [("11\n10\n9\n8\n7\n5\n4\n3\n2\n1\n", 99), (aoc.get_input(2015, 24), 10439961859)],
+    [
+        ("11\n10\n9\n8\n7\n5\n4\n3\n2\n1\n", 99),
+        (aoc.get_input(2015, 24), 10439961859),
+    ],
 )
 def test_solve(inp, result):
     assert result == solve(inp)

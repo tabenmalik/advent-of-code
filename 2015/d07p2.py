@@ -19,7 +19,7 @@ def op_not(val: int) -> int:
 
 
 def find_values(
-    sources: tuple[str, ...], wire_graph: WireGraph
+    sources: tuple[str, ...], wire_graph: WireGraph,
 ) -> tuple[int, ...] | None:
     values: list[int] = []
     for source in sources:
@@ -70,7 +70,10 @@ def parse_logic_gate(line: str) -> LogicGate:
 
 def solve(inp: str) -> str:
     wire_graph: WireGraph = {}
-    logic_gates = tuple(parse_logic_gate(line) for line in inp.strip().splitlines())
+    logic_gates = tuple(
+        parse_logic_gate(line)
+        for line in inp.strip().splitlines()
+    )
 
     while "a" not in wire_graph:
         for logic_gate in logic_gates:

@@ -18,7 +18,7 @@ RE_REINDEER = re.compile(
     r"(?P<fly_speed>\d+) km/s for "
     r"(?P<fly_duration>\d+) seconds, "
     "but then must rest for "
-    r"(?P<rest_duration>\d+) seconds."
+    r"(?P<rest_duration>\d+) seconds.",
 )
 
 

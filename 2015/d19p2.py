@@ -12,13 +12,15 @@ class Replacement(NamedTuple):
 
 
 def all_next_molecules(
-    molecule: str, replacements: tuple[Replacement, ...]
+    molecule: str, replacements: tuple[Replacement, ...],
 ) -> set[str]:
     new_molecules: set[str] = set()
     for replacement in replacements:
         for m in re.finditer(replacement.og, molecule):
             start, stop = m.span()
-            new_molecule = "".join([molecule[:start], replacement.sub, molecule[stop:]])
+            new_molecule = "".join(
+                [molecule[:start], replacement.sub, molecule[stop:]],
+            )
             new_molecules.add(new_molecule)
 
     return new_molecules

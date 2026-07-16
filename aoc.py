@@ -1,7 +1,6 @@
 """
 Supporting functions for Advent of Code development.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -31,7 +30,7 @@ def _fetch_input(year: int, day: int) -> str:
     session_cookie = cookie_file.read_text().strip()
     headers = {"Cookie": f"{session_cookie}", "User-Agent": "Taben Malik"}
     req = request.Request(
-        f"https://www.adventofcode.com/{year}/day/{day}/input", headers=headers
+        f"https://www.adventofcode.com/{year}/day/{day}/input", headers=headers,
     )
     resp = request.urlopen(req)
     return resp.read().decode()
@@ -91,7 +90,7 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         "    ]\n"
         ")\n"
         "def test_solve(inp, result):\n"
-        "    assert result == solve(inp)"
+        "    assert result == solve(inp)",
     )
     return 0
 

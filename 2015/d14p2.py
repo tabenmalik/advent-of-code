@@ -43,7 +43,7 @@ RE_REINDEER = re.compile(
     r"(?P<fly_speed>\d+) km/s for "
     r"(?P<fly_duration>\d+) seconds, "
     "but then must rest for "
-    r"(?P<rest_duration>\d+) seconds."
+    r"(?P<rest_duration>\d+) seconds.",
 )
 
 
@@ -77,7 +77,10 @@ def propogate_reindeers(
 
 # default seconds given in problem statement
 def race_reindeer(lines: str, seconds: int = 2503) -> int:
-    reindeers = tuple(parse_reindeer(line) for line in lines.strip().splitlines())
+    reindeers = tuple(
+        parse_reindeer(line)
+        for line in lines.strip().splitlines()
+    )
 
     reindeer_race = tuple(
         ReindeerRaceState(reindeer, reindeer.fly_duration) for reindeer in reindeers

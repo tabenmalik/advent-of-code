@@ -10,7 +10,7 @@ Presents = tuple[int, ...]
 
 
 def equal_split(
-    presents: Presents, target: int, num_bags: int
+    presents: Presents, target: int, num_bags: int,
 ) -> tuple[Presents, ...] | None:
     # don't care if there's multiple possible arrangements.
     # all arrangements of presents 2 and 3 are equivalent since
@@ -35,7 +35,8 @@ def equal_split(
 
         for bag_index in range(len(bags)):
             new_bags = list(bags)
-            new_bags[bag_index] = new_bags[bag_index] + (presents[presents_index],)
+            new_bags[bag_index] = new_bags[bag_index] + \
+                (presents[presents_index],)
             split = _split_helper(tuple(new_bags), presents_index + 1)
 
             if split is not None:
@@ -135,7 +136,10 @@ def test_partitions(presents, presents1_size, results):
 
 @pytest.mark.parametrize(
     "inp,result",
-    [("11\n10\n9\n8\n7\n5\n4\n3\n2\n1\n", 44), (aoc.get_input(2015, 24), 72050269)],
+    [
+        ("11\n10\n9\n8\n7\n5\n4\n3\n2\n1\n", 44),
+        (aoc.get_input(2015, 24), 72050269),
+    ],
 )
 def test_solve(inp, result):
     assert result == solve(inp)

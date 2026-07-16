@@ -10,7 +10,7 @@ _LETTER_SANDWHICH = re.compile(r"^.*([a-zA-Z])[a-zA-Z]\1.*$")
 
 def is_nice_string(string) -> bool:
     return bool(_PAIR_OF_TWO_LETTERS.search(string)) and bool(
-        _LETTER_SANDWHICH.search(string)
+        _LETTER_SANDWHICH.search(string),
     )
 
 

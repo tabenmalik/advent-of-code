@@ -61,7 +61,9 @@ def test_get_input_successful_request(getup):
     assert expected_cache_file.read_text() == (
         "this is downloaded input\n" "another line of input\n"
     )
-    assert problem_input == ("this is downloaded input\n" "another line of input\n")
+    assert problem_input == (
+        "this is downloaded input\n" "another line of input\n"
+    )
 
 
 def test_successful_problem_entry_point(getup):

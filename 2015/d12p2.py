@@ -24,7 +24,9 @@ def all_ints_except_red(data: Any) -> list[int]:
     elif isinstance(data, str):
         return []
 
-    raise NotImplementedError(f"Don't know how to process '{type(data)}' types")
+    raise NotImplementedError(
+        f"Don't know how to process '{type(data)}' types",
+    )
 
 
 def int_sum_from_json(inp: str) -> int:

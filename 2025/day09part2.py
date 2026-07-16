@@ -210,7 +210,10 @@ def _max_area(points):
     polygon = Polygon(points)
 
     max_area = 0
-    rects = [Rectangle.from_two_points(p1, p2) for p1, p2 in combinations(points, 2)]
+    rects = [
+        Rectangle.from_two_points(p1, p2)
+        for p1, p2 in combinations(points, 2)
+    ]
     rects.sort(key=Rectangle.area, reverse=True)
 
     for rect in rects:
@@ -344,7 +347,7 @@ def solve(input_s) -> int:
         assert last_xy is not None
 
         for x, y in product(
-            range(first_xy[0], last_xy[0] + 1), range(first_xy[1], last_xy[1])
+            range(first_xy[0], last_xy[0] + 1), range(first_xy[1], last_xy[1]),
         ):
             print(chunk_grid[x][y])
             if chunk_grid[x][y].outside:
