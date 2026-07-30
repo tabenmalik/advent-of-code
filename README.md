@@ -1,49 +1,45 @@
-= Advent of Code Solutions
+# Advent of Code Solutions
 
 Welcome to my Advent of Code solutions!
-https://adventofcode.com/[Advent of Code] is a yearly December event hosted by Eric Wastl
+[Advent of Code](https://adventofcode.com/) is a yearly December event hosted by Eric Wastl
 where code exercises are published throughout the month in increasing difficulty.
 
-
-=== Session Cookie
+### Session Cookie
 
 Fetching data or submitting answers to Advent of Code requires a session cookie to authenticate
 all requests. Log in to Advent of Code, open up the browser's developer tools, find the "session"
 cookie and copy the value to `$XDG_DATA_HOME/aoc/session_cookie.txt`
 
-.Example session_cookie.txt
-----
+Example session_cookie.txt:
+```
 session=1234abcd
-----
+```
 
-=== Inputs
+### Inputs
 
 Problem inputs are not stored in this repo to respect the policy of Advent of Code.
 Instead, input files are fetched and cached under `$XDG_CACHE_HOME/aoc`. Fetching
 and caching the problem inputs happens automatically when running a problem.
 
-=== Setup and Run
+### Setup and Run
 
-.Setup
-[source]
-----
+Setup:
+```console
 $ virtualenv ./venv
 $ . ./venv/bin/activate
 $ pip install .
-----
+```
 
 Each problem is runnable as a script.
 
-.Example
-[source]
-----
+Example:
+```console
 $ python ./2015/d1p1.py
 280
-----
+```
 
 When starting a new day, use `aoc-start-problem` to generate a template script.
 
-[source]
-----
+```console
 $ aoc-start-problem 2015 3 > ./2015/d3p1.py
-----
+```
