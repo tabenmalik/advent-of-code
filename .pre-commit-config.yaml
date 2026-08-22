@@ -37,9 +37,3 @@ repos:
     -   id: mypy
         name: mypy strict
         args: [--config-file, pyproject.toml, --cache-dir, .mypy_strict_cache]
-        exclude: |
-            (?x)(
-                ^2015/.*$
-                | ^aoc_test.py$
-                | ^2025/.*$
-            )
