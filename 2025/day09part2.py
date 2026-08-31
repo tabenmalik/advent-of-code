@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import deque
+from collections.abc import Generator
 from dataclasses import dataclass
 from functools import cache
 from functools import cached_property
@@ -11,6 +12,8 @@ from itertools import product
 from math import copysign
 from typing import Any
 from typing import NamedTuple
+from typing import Self
+from typing import TypeAlias
 
 import pytest
 
@@ -33,12 +36,24 @@ EXAMPLE = """\
 """
 
 
+class Point(NamedTuple):
+    x: int
+    y: int
+
+    @classmethod
+    def from_csv(cls, s: str) -> Self:
+        return cls(*map(int, s.strip().split(",")))
+
+
+Ray: TypeAlias = tuple[Point, Point]
+
+
 @cache
-def is_horizontal(ray: tuple[Point, Point]):
+def is_horizontal(ray: Ray) -> bool:
     return ray[0].y == ray[1].y
 
 
-def intersect_vertical(ray: tuple[Point, Point], p: Point) -> bool:
+def intersect_vertical(ray: Ray, p: Point) -> bool:
     return (
         p.x >= ray[0].x
         and max(ray[0].y, ray[1].y) >= p.y
@@ -46,7 +61,7 @@ def intersect_vertical(ray: tuple[Point, Point], p: Point) -> bool:
     )
 
 
-def intersects(r1, r2) -> bool:
+def intersects(r1: Ray, r2: Ray) -> bool:
     if is_horizontal(r1) == is_horizontal(r2):
         return False
     if is_horizontal(r1):
@@ -79,16 +94,7 @@ def on_line(ray: tuple[Point, Point], p: Point) -> bool:
     )
 
 
-class Point(NamedTuple):
-    x: int
-    y: int
-
-    @classmethod
-    def from_csv(cls, s):
-        return cls(*map(int, s.strip().split(",")))
-
-
-def ray_points(ray):
+def ray_points(ray: Ray) -> Generator[Point]:
     step = (0, int(copysign(1, ray[1].y - ray[0].y)))
     if is_horizontal(ray):
         step = (int(copysign(1, ray[1].x - ray[0].x)), 0)
@@ -104,27 +110,27 @@ class Rectangle(NamedTuple):
     corners: tuple[Point, Point, Point, Point]
 
     @classmethod
-    def from_two_points(cls, p1, p3):
+    def from_two_points(cls, p1: Point, p3: Point) -> Self:
         p2 = Point(p1.x - (p1.x - p3.x), p1.y)
         p4 = Point(p1.x, p1.y - (p1.y - p3.y))
         return cls((p1, p2, p3, p4))
 
-    def area(self):
+    def area(self) -> int:
         p1 = self.corners[0]
         p3 = self.corners[2]
         return int((abs(p1.x - p3.x) + 1) * (abs(p1.y - p3.y) + 1))
 
-    def perimeter_points(self):
+    def perimeter_points(self) -> Generator[Point]:
         for ray in pairwise(chain(self.corners, (self.corners[0],))):
             yield from ray_points(ray)
 
-    def rays(self):
+    def rays(self) -> Generator[Ray]:
         yield from pairwise(chain(self.corners, (self.corners[0],)))
 
 
 @dataclass(frozen=True)
 class Polygon:
-    points: tuple[Point]
+    points: tuple[Point, ...]
 
     def contains(self, rec: Rectangle) -> bool:
         intersect_count = 0
@@ -140,18 +146,18 @@ class Polygon:
         return True
 
     @cached_property
-    def rays(self):
+    def rays(self) -> tuple[Ray, ...]:
         return tuple(pairwise(chain(self.points, (self.points[0],))))
 
     @cached_property
-    def vertical_rays(self):
+    def vertical_rays(self) -> tuple[Ray, ...]:
         return tuple(ray for ray in self.rays if not is_horizontal(ray))
 
     @cached_property
-    def perimeter_points(self) -> tuple:
+    def perimeter_points(self) -> tuple[Point, ...]:
         return tuple(point for ray in self.rays for point in ray_points(ray))
 
-    def __str__(self):
+    def __str__(self) -> str:
         min_x = min(p.x for p in self.points) - 1
         max_x = max(p.x for p in self.points) + 1
         min_y = min(p.y for p in self.points) - 1
@@ -170,7 +176,7 @@ class Polygon:
         return "".join(chars)
 
     @cached_property
-    def all_points(self):
+    def all_points(self) -> set[Point]:
         all_points = set(self.perimeter_points)
 
         min_x = min(p.x for p in self.points) - 1
@@ -185,7 +191,7 @@ class Polygon:
 
         return all_points
 
-    def contains_point(self, point) -> bool:
+    def contains_point(self, point: Point) -> bool:
         intersect_count = 0
         if point in self.perimeter_points:
             return True
@@ -196,17 +202,20 @@ class Polygon:
         return intersect_count % 2 != 0
 
     @classmethod
-    def from_csv(cls, csv):
-        points = [Point.from_csv(line) for line in csv.strip().split("\n")]
+    def from_csv(cls, csv: str) -> Self:
+        points = tuple(
+            Point.from_csv(line)
+            for line in csv.strip().split("\n")
+        )
 
         return cls(points)
 
 
-def _parse_points(input_s):
+def _parse_points(input_s: str) -> tuple[Point, ...]:
     return tuple(map(Point.from_csv, input_s.strip().split("\n")))
 
 
-def _max_area(points):
+def _max_area(points: tuple[Point, ...]) -> int:
     polygon = Polygon(points)
 
     max_area = 0
@@ -230,7 +239,7 @@ class TileChunk:
     y_range: tuple[int, int]
     outside: bool | None = None
 
-    def contains_point(self, p):
+    def contains_point(self, p: Point) -> bool:
         return (
             self.x_range[1] > p.x
             and p.x >= self.x_range[0]
@@ -239,8 +248,11 @@ class TileChunk:
         )
 
 
-def flood_fill(chunk_grid):
-    to_check = deque()
+ChunkGrid: TypeAlias = list[list[TileChunk]]
+
+
+def flood_fill(chunk_grid: ChunkGrid) -> None:
+    to_check: deque[tuple[int, int]] = deque()
     to_check.append((0, 0))
 
     while to_check:
@@ -259,7 +271,7 @@ def flood_fill(chunk_grid):
                 to_check.append((next_x, next_y))
 
 
-def find_chunk(chunk_grid, point):
+def find_chunk(chunk_grid: ChunkGrid, point: Point) -> tuple[int, int]:
     for x in range(len(chunk_grid)):
         if (
             chunk_grid[x][0].x_range[0] <= point.x
@@ -277,7 +289,7 @@ def find_chunk(chunk_grid, point):
     return x, y
 
 
-def solve(input_s) -> int:
+def solve(input_s: str) -> int:
 
     red_tiles = _parse_points(input_s)
 
@@ -367,7 +379,7 @@ def solve(input_s) -> int:
 
 
 @pytest.mark.parametrize("input_s", [EXAMPLE])
-def test_solve(input_s):
+def test_solve(input_s: str) -> None:
     assert solve(input_s) == 24
 
 
