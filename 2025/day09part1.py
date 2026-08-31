@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from itertools import combinations
 from typing import NamedTuple
+from typing import Self
 
 import pytest
 
@@ -22,19 +24,19 @@ class Point(NamedTuple):
     y: int
 
     @classmethod
-    def from_csv(cls, s):
+    def from_csv(cls, s: str) -> Self:
         return cls(*map(int, s.strip().split(",")))
 
 
-def _parse_points(input_s):
+def _parse_points(input_s: str) -> tuple[Point, ...]:
     return tuple(map(Point.from_csv, input_s.strip().split("\n")))
 
 
-def area(p1, p2):
+def area(p1: Point, p2: Point) -> int:
     return int(abs(p1.x - p2.x + 1) * abs(p1.y - p2.y + 1))
 
 
-def _largest_rect(points):
+def _largest_rect(points: Sequence[Point]) -> int:
     max_area = 0
 
     for pair in combinations(points, 2):
@@ -45,7 +47,7 @@ def _largest_rect(points):
     return max_area
 
 
-def solve(input_s) -> int:
+def solve(input_s: str) -> int:
 
     points = _parse_points(input_s)
 
@@ -53,5 +55,5 @@ def solve(input_s) -> int:
 
 
 @pytest.mark.parametrize("input_s", [EXAMPLE])
-def test_solve(input_s):
+def test_solve(input_s: str) -> None:
     assert solve(input_s) == 50
