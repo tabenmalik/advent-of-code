@@ -37,9 +37,26 @@ repos:
     -   id: mypy
         name: mypy strict
         args: [--config-file, pyproject.toml, --cache-dir, .mypy_strict_cache]
+        additional_dependencies: [pytest]
         exclude: |
             (?x)(
                 ^2015/.*$
                 | ^aoc_test.py$
-                | ^2025/.*$
+                | ^2025/day01part1.py$
+                | ^2025/day01part2.py$
+                | ^2025/day02part1.py$
+                | ^2025/day02part2.py$
+                | ^2025/day03part1.py$
+                | ^2025/day03part2.py$
+                | ^2025/day04part1.py$
+                | ^2025/day04part2.py$
+                | ^2025/day05part1.py$
+                | ^2025/day05part2.py$
+                | ^2025/day06part1.py$
+                | ^2025/day06part2.py$
+                | ^2025/day07part1.py$
+                | ^2025/day07part2.py$
+                | ^2025/day08part1.py$
+                | ^2025/day08part2.py$
+                | ^2025/day09part1.py$
             )
