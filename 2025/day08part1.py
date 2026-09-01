@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from functools import cache
 from functools import cached_property
 from functools import reduce
@@ -40,17 +41,20 @@ class Junction(NamedTuple):
 
 class JunctionGraph:
 
-    def __init__(self, junctions):
+    def __init__(self, junctions: Sequence[Junction]) -> None:
         # keys are nodes, values are connections to other nodes
-        self._graph = {j: set() for j in junctions}
+        self._graph: dict[Junction, set[Junction]] = {
+            j: set() for j in junctions
+        }
+
         self._shortest_distances = [
             (j1, j2)
             for j1, j2 in combinations(junctions, 2)
         ]
         self._shortest_distances.sort(key=lambda pair: distance(*pair))
-        self._connection_cache = set()
+        self._connection_cache: set[tuple[Junction, ...]] = set()
 
-    def connect(self, j1, j2):
+    def connect(self, j1: Junction, j2: Junction) -> None:
         self._graph[j1].add(j2)
         self._graph[j2].add(j1)
 
@@ -65,34 +69,24 @@ class JunctionGraph:
                 if connection not in checked:
                     connected.add(connection)
 
-    def are_connected(self, j1, j2, *, checked=None):
+    def are_connected(self, j1: Junction, j2: Junction) -> bool:
         j1, j2 = sorted([j1, j2])
         if (j1, j2) in self._connection_cache:
             return True
         return False
 
-        # checked = set()
-        # to_check = {j1}
-        # while to_check:
-        #    junction = to_check.pop()
-        #    if junction == j2:
-        #        self._connection_cache.add((j1, j2))
-        #        return True
-        #    checked.add(junction)
-        #    for connection in self._graph[junction]:
-        #        if connection not in checked:
-        #            to_check.add(connection)
-        # return False
-
     @cached_property
-    def max_distance(self):
-        max_dist = 0
+    def max_distance(self) -> float:
+        max_dist: float = 0
         for j1, j2 in combinations(self._graph, 2):
             max_dist = max(max_dist, distance(j1, j2))
 
         return max_dist
 
-    def closest_non_connected_junctions(self, max_pairs):
+    def closest_non_connected_junctions(
+        self,
+        max_pairs: int,
+    ) -> tuple[Junction, Junction] | None:
         for i, pair in enumerate(self._shortest_distances):
             if i >= max_pairs:
                 break
@@ -100,8 +94,8 @@ class JunctionGraph:
                 return pair
         return None
 
-    def circuits(self):
-        cs = []
+    def circuits(self) -> list[set[Junction]]:
+        cs: list[set[Junction]] = []
         for junction in self._graph:
             for circuit in cs:
                 if self.are_connected(junction, next(iter(circuit))):
@@ -113,11 +107,11 @@ class JunctionGraph:
 
 
 @cache
-def distance(j1, j2):
+def distance(j1: Junction, j2: Junction) -> float:
     return sqrt((j2.x - j1.x) ** 2 + (j2.y - j1.y) ** 2 + (j2.z - j1.z) ** 2)
 
 
-def _parse_junction_locations(input_s):
+def _parse_junction_locations(input_s: str) -> JunctionGraph:
     point_strs = input_s.strip().split()
 
     junctions = tuple(
@@ -127,7 +121,7 @@ def _parse_junction_locations(input_s):
     return JunctionGraph(junctions)
 
 
-def solve(input_s, pairs=1000):
+def solve(input_s: str, pairs: int = 1000) -> int:
     junction_graph = _parse_junction_locations(input_s)
     while (
         junction_pair := junction_graph.closest_non_connected_junctions(pairs)
