@@ -3,6 +3,8 @@ from __future__ import annotations
 from itertools import product
 from math import sqrt
 from typing import NamedTuple
+from typing import Self
+from typing import TypeAlias
 
 EXAMPLE = """\
 162,817,812
@@ -35,10 +37,10 @@ class Junction(NamedTuple):
     z: int
 
     @classmethod
-    def from_csv(cls, s):
+    def from_csv(cls, s: str) -> Self:
         return cls(*map(int, s.strip().split(",")))
 
-    def distance(self, j):
+    def distance(self, j: Junction) -> float:
         return sqrt(
             (j.x - self.x) ** 2
             + (j.y - self.y) ** 2
@@ -46,8 +48,11 @@ class Junction(NamedTuple):
         )
 
 
-def _condense_circuits(junction_graph):
-    new_junction_graph = []
+JunctionGraph: TypeAlias = list[set[Junction]]
+
+
+def _condense_circuits(junction_graph: JunctionGraph) -> JunctionGraph:
+    new_junction_graph: JunctionGraph = []
     new_junction_graph.append(junction_graph[0])
 
     for circuit in junction_graph:
@@ -60,11 +65,13 @@ def _condense_circuits(junction_graph):
     return new_junction_graph
 
 
-def _last_connected_junctions(junctions):
-    junction_graph: list[set[Junction]] = []
+def _last_connected_junctions(
+    junctions: tuple[Junction, ...],
+) -> tuple[Junction, Junction]:
+    junction_graph: JunctionGraph = []
 
-    junction_pairs = product(junctions, junctions)
-    junction_pairs = sorted(junction_pairs, key=lambda p: p[0].distance(p[1]))
+    junction_pairs = list(product(junctions, junctions))
+    junction_pairs.sort(key=lambda p: p[0].distance(p[1]))
     for j1, j2 in junction_pairs:
         if j1 == j2:
             continue
@@ -86,11 +93,11 @@ def _last_connected_junctions(junctions):
     return j1, j2
 
 
-def _read_input(input_s) -> tuple[Junction]:
+def _read_input(input_s: str) -> tuple[Junction, ...]:
     return tuple(map(Junction.from_csv, input_s.strip().split("\n")))
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     junctions = _read_input(input_s)
     j1, j2 = _last_connected_junctions(junctions)
     return j1.x * j2.x
