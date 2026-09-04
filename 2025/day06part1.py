@@ -15,13 +15,14 @@ EXAMPLE = """\
 
 class Problem(NamedTuple):
     op: str
-    numbers: tuple[int]
+    numbers: tuple[int, ...]
 
 
-def _parse_problems(input_s):
-    lines = input_s.strip().split("\n")
-    lines = list(map(str.strip, lines))
-    lines = list(map(str.split, lines))
+def _parse_problems(input_s: str) -> list[Problem]:
+    lines = [
+        line.strip().split()
+        for line in input_s.strip().split("\n")
+    ]
     problem_strs = list(zip(*lines))
 
     problems = [
@@ -32,12 +33,12 @@ def _parse_problems(input_s):
     return problems
 
 
-def _compute_problem(p: Problem):
+def _compute_problem(p: Problem) -> int:
     op = add if p.op == "+" else mul
     return reduce(op, p.numbers)
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     problems = _parse_problems(input_s)
 
     total_of_answers = sum(map(_compute_problem, problems))
