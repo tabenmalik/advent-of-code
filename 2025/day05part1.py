@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
+
 EXAMPLE = """\
 3-5
 10-14
@@ -15,7 +17,7 @@ EXAMPLE = """\
 """
 
 
-def _parse_ingredient_database(input_s):
+def _parse_ingredient_database(input_s: str) -> tuple[list[range], list[int]]:
     id_range_strs = []
     file_iter = iter(input_s.split("\n"))
     for line in file_iter:
@@ -29,7 +31,7 @@ def _parse_ingredient_database(input_s):
             id_strs.append(line)
 
     id_ranges = [
-        tuple(map(int, id_range_str.split("-")))
+        range(*map(int, id_range_str.split("-")))
         for id_range_str in id_range_strs
     ]
 
@@ -38,18 +40,16 @@ def _parse_ingredient_database(input_s):
     return id_ranges, ids
 
 
-def _ranges_overlap(a, b):
-    a = range(a[0], a[1] + 1)
-    b = range(b[0], b[1] + 1)
+def _ranges_overlap(a: range, b: range) -> bool:
     return a.start < b.stop and a.stop > b.start
 
 
-def _merge_id_ranges(id_ranges):
+def _merge_id_ranges(id_ranges: list[range]) -> list[range]:
     id_ranges = sorted(id_ranges, key=lambda x: x[0])
     merged_id_ranges = [id_ranges[0]]
     for id_range in id_ranges[1:]:
         if _ranges_overlap(merged_id_ranges[-1], id_range):
-            merged_id_ranges[-1] = (
+            merged_id_ranges[-1] = range(
                 merged_id_ranges[-1][0],
                 max(merged_id_ranges[-1][1], id_range[1]),
             )
@@ -59,7 +59,7 @@ def _merge_id_ranges(id_ranges):
     return merged_id_ranges
 
 
-def _find_fresh_ids(ids, id_ranges):
+def _find_fresh_ids(ids: Sequence[int], id_ranges: list[range]) -> list[int]:
     fresh_ids = []
     for id_ in ids:
         for id_range in id_ranges:
@@ -70,7 +70,7 @@ def _find_fresh_ids(ids, id_ranges):
     return fresh_ids
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     id_ranges, ids = _parse_ingredient_database(input_s)
     id_ranges = _merge_id_ranges(id_ranges)
     fresh_ids = _find_fresh_ids(ids, id_ranges)
