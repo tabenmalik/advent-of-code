@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import TypeAlias
+
 EXAMPLE = """\
 ..@@.@@@@.
 @@@.@.@.@@
@@ -13,8 +15,10 @@ EXAMPLE = """\
 @.@.@@@.@.
 """
 
+Grid: TypeAlias = list[list[str]]
 
-def _parse_grid(input_s):
+
+def _parse_grid(input_s: str) -> Grid:
     # returned grid where 1,1 (col, row) is the top left corner
     lines = input_s.strip().split()
 
@@ -30,7 +34,7 @@ def _parse_grid(input_s):
     return grid
 
 
-def _num_adjacent_rolls(grid, center_row, center_col):
+def _num_adjacent_rolls(grid: Grid, center_row: int, center_col: int) -> int:
     count = 0
     for row in [center_row - 1, center_row, center_row + 1]:
         for col in [center_col - 1, center_col, center_col + 1]:
@@ -42,11 +46,15 @@ def _num_adjacent_rolls(grid, center_row, center_col):
     return count
 
 
-def _can_be_accessed_by_forklift(grid, center_row, center_col):
+def _can_be_accessed_by_forklift(
+    grid: Grid,
+    center_row: int,
+    center_col: int,
+) -> bool:
     return _num_adjacent_rolls(grid, center_row, center_col) < 4
 
 
-def _num_rolls_access_by_forklift(grid):
+def _num_rolls_access_by_forklift(grid: Grid) -> int:
     count = 0
     for row in range(1, len(grid) - 1):
         for col in range(1, len(grid[0]) - 1):
@@ -58,6 +66,6 @@ def _num_rolls_access_by_forklift(grid):
     return count
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     grid = _parse_grid(input_s)
     return _num_rolls_access_by_forklift(grid)
