@@ -22,29 +22,29 @@ EXAMPLE = """\
 
 class TachyonManifold:
 
-    def __init__(self, manifold_array):
+    def __init__(self, manifold_array: list[list[str]]):
         self._data = manifold_array
         self._beams = {self._find_start(self._data)}
         self._timelines = {self._find_start(self._data): 1}
 
-    def __getitem__(self, loc):
+    def __getitem__(self, loc: tuple[int, int]) -> str:
         return self._data[loc[0]][loc[1]]
 
-    def __setitem__(self, loc, v):
+    def __setitem__(self, loc: tuple[int, int], v: str) -> None:
         self._data[loc[0]][loc[1]] = v
 
     @staticmethod
-    def _find_start(manifold_array):
+    def _find_start(manifold_array: list[list[str]]) -> tuple[int, int]:
         for row in range(len(manifold_array)):
             for col in range(len(manifold_array[0])):
                 if manifold_array[row][col] == "S":
                     return (row, col)
         assert False, "There must be a starting point"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "\n".join(map("".join, self._data)) + "\n"
 
-    def num_splits(self):
+    def num_splits(self) -> int:
         total = 0
         for row in range(len(self._data)):
             for col in range(len(self._data[0])):
@@ -55,13 +55,13 @@ class TachyonManifold:
                     total += 1
         return total
 
-    def total_timelines(self):
+    def total_timelines(self) -> int:
         return sum(self._timelines.values())
 
-    def can_update(self):
+    def can_update(self) -> bool:
         return len(self._beams) > 0
 
-    def update(self):
+    def update(self) -> None:
         # copy the beam set since it will be modified in the loop
         for beam_loc in list(self._beams):
             below_loc = beam_loc[0] + 1, beam_loc[1]
@@ -100,11 +100,11 @@ class TachyonManifold:
                 assert False, "Shouldn't happen!"
 
 
-def _parse_tachyon_manifold(input_s) -> TachyonManifold:
+def _parse_tachyon_manifold(input_s: str) -> TachyonManifold:
     return TachyonManifold(list(map(list, input_s.strip().split())))
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     tm = _parse_tachyon_manifold(input_s)
     while tm.can_update():
         tm.update()
