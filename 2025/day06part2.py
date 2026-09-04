@@ -1,10 +1,22 @@
 from __future__ import annotations
 
-from aoc.year2025.day06part1 import _compute_problem
-from aoc.year2025.day06part1 import Problem
+from functools import reduce
+from operator import add
+from operator import mul
+from typing import NamedTuple
 
 
-def _parse_problems_correctly(input_s):
+def _compute_problem(p: Problem) -> int:
+    op = add if p.op == "+" else mul
+    return reduce(op, p.numbers)
+
+
+class Problem(NamedTuple):
+    op: str
+    numbers: tuple[int, ...]
+
+
+def _parse_problems_correctly(input_s: str) -> list[Problem]:
     worksheet = input_s
 
     # reorient worksheet to be easier to parse
@@ -21,7 +33,7 @@ def _parse_problems_correctly(input_s):
     return problems
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     problems = _parse_problems_correctly(input_s)
     total_of_answers = sum(map(_compute_problem, problems))
     return total_of_answers
