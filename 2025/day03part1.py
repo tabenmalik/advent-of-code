@@ -10,7 +10,7 @@ EXAMPLE = """\
 """
 
 
-def _max_joltage_batteries(bank: str, num_batteries: int):
+def _max_joltage_batteries(bank: str, num_batteries: int) -> str:
     joltage_index = 0
     for joltage in range(9, 0, -1):
         joltage_index = bank.find(
@@ -30,20 +30,20 @@ def _max_joltage(bank: str, num_batteries: int) -> int:
     return int(_max_joltage_batteries(bank, num_batteries))
 
 
-def _total_max_joltage(banks, num_batteries):
+def _total_max_joltage(banks: list[str], num_batteries: int) -> int:
     return sum(map(lambda bank: _max_joltage(bank, num_batteries), banks))
 
 
-def _read_battery_banks(path: Path):
+def _read_battery_banks(path: Path) -> list[str]:
     with open(path) as fobj:
         return fobj.read().strip().split()
 
 
-def _parse_battery_banks(input_s):
+def _parse_battery_banks(input_s: str) -> list[str]:
     return input_s.strip().split()
 
 
-def solve(input_s, num_batteries=2):
+def solve(input_s: str, num_batteries: int = 2) -> int:
     banks = _parse_battery_banks(input_s)
     joltage = _total_max_joltage(banks, num_batteries)
     return joltage
