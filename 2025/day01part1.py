@@ -24,7 +24,7 @@ def _parse_rotations(s: str) -> tuple[int, ...]:
     return tuple(map(int, rot_strs))
 
 
-def _safe_password(dial_start: int, rotations: tuple[int]) -> int:
+def _safe_password(dial_start: int, rotations: tuple[int, ...]) -> int:
     # the password is the number of times the dial
     # left pointing at 0 after any rotation in the sequence
     dial_value = dial_start
@@ -32,7 +32,7 @@ def _safe_password(dial_start: int, rotations: tuple[int]) -> int:
     return Counter(dial_values)[0]
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     rotations = _parse_rotations(input_s)
     password = _safe_password(50, rotations)
 

@@ -27,7 +27,7 @@ def _safe_password(dial_start: int, rotations: tuple[int, ...]) -> int:
     return zero_count
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     rotations = _parse_rotations(input_s)
     password = _safe_password(50, rotations)
     return password
