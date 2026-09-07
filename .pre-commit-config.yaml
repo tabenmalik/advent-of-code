@@ -44,6 +44,4 @@ repos:
                 | ^aoc_test.py$
                 | ^2025/day01part1.py$
                 | ^2025/day01part2.py$
-                | ^2025/day02part1.py$
-                | ^2025/day02part2.py$
             )
