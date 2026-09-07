@@ -37,5 +37,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 4), 254575),
     ],
 )
-def test_complete_key(secret_key, md5_hash):
+def test_complete_key(secret_key: str, md5_hash: int) -> None:
     assert md5_hash == complete_key(secret_key)

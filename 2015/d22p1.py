@@ -62,13 +62,13 @@ class GameState(NamedTuple):
     # game states for finding optimal play strategy
     total_mana: int = 0
 
-    def __lt__(self, other: object):
+    def __lt__(self, other: object) -> bool:
         if not isinstance(other, GameState):
             return NotImplemented
         else:
             return self.total_mana < other.total_mana
 
-    def __eq__(self, other: object):
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, GameState):
             return NotImplemented
         else:
@@ -257,5 +257,5 @@ import pytest  # noqa: E402
 
 
 @pytest.mark.parametrize("inp,result", [(aoc.get_input(2015, 22), 953)])
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

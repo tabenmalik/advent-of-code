@@ -62,7 +62,11 @@ import pytest  # noqa: E402
         (Position(-20, 60), Dir.Down, Position(-20, 59)),
     ],
 )
-def test_position_movement(start, direction, result):
+def test_position_movement(
+    start: Position,
+    direction: Dir,
+    result: Position,
+) -> None:
     assert start.move(direction) == result
 
 
@@ -80,5 +84,5 @@ def test_position_movement(start, direction, result):
         (aoc.get_input(2015, 3), 2572),
     ],
 )
-def test_deliver_presents(directions, houses):
+def test_deliver_presents(directions: str, houses: int) -> None:
     assert houses == deliver_presents(directions)

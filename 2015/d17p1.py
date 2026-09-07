@@ -35,5 +35,9 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 17), 150, 654),
     ],
 )
-def test_eggnog_sets(container_doc, eggnog_liters, container_combos):
+def test_eggnog_sets(
+    container_doc: str,
+    eggnog_liters: int,
+    container_combos: int,
+) -> None:
     assert container_combos == eggnog_sets(container_doc, eggnog_liters)

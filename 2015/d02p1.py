@@ -61,5 +61,5 @@ import pytest  # noqa: E402
         (get_input(2015, 2), 1606483),
     ],
 )
-def test_total_wrapping_paper(dimensions, total):
+def test_total_wrapping_paper(dimensions: str, total: int) -> None:
     assert total_wrapping_paper(dimensions) == total

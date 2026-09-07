@@ -9,7 +9,7 @@ _LETTER_TWICE_IN_A_ROW = re.compile(r"^.*(.)\1.*$")
 _DISALLOWED_SUBSTRINGS = re.compile(r"^.*(ab|cd|pq|xy).*$")
 
 
-def is_nice_string(string) -> bool:
+def is_nice_string(string: str) -> bool:
     return (
         bool(_AT_LEAST_THREE_VOWELS.search(string))
         and bool(_LETTER_TWICE_IN_A_ROW.search(string))
@@ -39,7 +39,7 @@ import pytest  # noqa: E402
         "xxoplsenni",
     ],
 )
-def test_is_nice_string(string):
+def test_is_nice_string(string: str) -> None:
     assert is_nice_string(string)
 
 
@@ -54,7 +54,7 @@ def test_is_nice_string(string):
         "aaeiab",
     ],
 )
-def test_is_naughty_string(string):
+def test_is_naughty_string(string: str) -> None:
     assert not is_nice_string(string)
 
 
@@ -74,5 +74,5 @@ def test_is_naughty_string(string):
         ("abeei\n", 0),
     ],
 )
-def test_count_nice_strings(lines, result):
+def test_count_nice_strings(lines: str, result: int) -> None:
     assert result == count_nice_strings(lines)

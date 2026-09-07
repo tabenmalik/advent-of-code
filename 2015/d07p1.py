@@ -35,7 +35,7 @@ def find_values(
 class LogicGate(NamedTuple):
     dest: str
     sources: tuple[str, ...]
-    op: Callable
+    op: Callable[[int], int] | Callable[[int, int], int]
 
 
 RE_AND = re.compile(r"(\w+) AND (\w+) -> (\w+)")
@@ -106,7 +106,7 @@ import pytest  # noqa: E402
         ("34 OR cd -> y", LogicGate("y", ("34", "cd"), operator.or_)),
     ],
 )
-def test_parse_logic_gate(line, logic_gate):
+def test_parse_logic_gate(line: str, logic_gate: LogicGate) -> None:
     assert logic_gate == parse_logic_gate(line)
 
 
@@ -117,5 +117,5 @@ def test_parse_logic_gate(line, logic_gate):
         (aoc.get_input(2015, 7), "16076"),
     ],
 )
-def test_solve(logic_lines, value_of_a):
+def test_solve(logic_lines: str, value_of_a: str) -> None:
     assert value_of_a == solve(logic_lines)

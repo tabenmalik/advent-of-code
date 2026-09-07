@@ -38,7 +38,7 @@ import pytest  # noqa: E402
         (r'"\x27"', r'"\"\\x27\""'),
     ],
 )
-def test_encode(line, encoded):
+def test_encode(line: str, encoded: str) -> None:
     assert encoded == encode(line)
 
 
@@ -52,5 +52,5 @@ def test_encode(line, encoded):
         (aoc.get_input(2015, 8), 2074),
     ],
 )
-def test_char_diff(santa_list, result):
+def test_char_diff(santa_list: str, result: int) -> None:
     assert result == char_diff(santa_list)

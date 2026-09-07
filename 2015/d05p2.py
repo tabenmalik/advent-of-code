@@ -8,7 +8,7 @@ _PAIR_OF_TWO_LETTERS = re.compile(r"^.*([a-zA-Z]{2}).*\1.*$")
 _LETTER_SANDWHICH = re.compile(r"^.*([a-zA-Z])[a-zA-Z]\1.*$")
 
 
-def is_nice_string(string) -> bool:
+def is_nice_string(string: str) -> bool:
     return bool(_PAIR_OF_TWO_LETTERS.search(string)) and bool(
         _LETTER_SANDWHICH.search(string),
     )
@@ -35,7 +35,7 @@ import pytest  # noqa: E402
         "xxyxx",
     ],
 )
-def test_is_nice_string(string):
+def test_is_nice_string(string: str) -> None:
     assert is_nice_string(string)
 
 
@@ -50,7 +50,7 @@ def test_is_nice_string(string):
         "ieodomkazucvgmuy",
     ],
 )
-def test_is_naughty_string(string):
+def test_is_naughty_string(string: str) -> None:
     assert not is_nice_string(string)
 
 
@@ -64,5 +64,5 @@ def test_is_naughty_string(string):
         (aoc.get_input(2015, 5), 53),
     ],
 )
-def test_count_nice_strings(lines, result):
+def test_count_nice_strings(lines: str, result: int) -> None:
     assert result == count_nice_strings(lines)

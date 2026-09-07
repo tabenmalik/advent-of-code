@@ -71,5 +71,8 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 9), 117),
     ],
 )
-def test_find_shortest_distance(distances, shortest_distance):
+def test_find_shortest_distance(
+    distances: str,
+    shortest_distance: int,
+) -> None:
     assert shortest_distance == find_shortest_distance(distances)

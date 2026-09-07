@@ -45,5 +45,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 8), 1342),
     ],
 )
-def test_char_diff(santa_list, result):
+def test_char_diff(santa_list: str, result: int) -> None:
     assert result == char_diff(santa_list)

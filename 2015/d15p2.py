@@ -71,7 +71,7 @@ def rate_recipe(recipe: Recipe) -> int:
     )
 
 
-def recipe_calories(recipe: Recipe):
+def recipe_calories(recipe: Recipe) -> int:
     return sum(
         ingredient.calories * teaspoons
         for ingredient, teaspoons in recipe
@@ -117,7 +117,7 @@ import pytest  # noqa: E402
         ),
     ],
 )
-def test_ingredient_parse(line, ingredient):
+def test_ingredient_parse(line: str, ingredient: Ingredient) -> None:
     assert ingredient == Ingredient.from_txt(line)
 
 
@@ -140,7 +140,10 @@ def test_ingredient_parse(line, ingredient):
         ),
     ],
 )
-def test_recipe_score(recipe, score):
+def test_recipe_score(
+    recipe: set[tuple[Ingredient, int]],
+    score: int,
+) -> None:
     assert score == rate_recipe(recipe)
 
 
@@ -152,7 +155,10 @@ def test_recipe_score(recipe, score):
         ((Ingredient(0, 0, 0, 0, 0), Ingredient(0, 0, 0, 0, 0)), 101),
     ],
 )
-def test_all_recipes(ingredients, num_recipes):
+def test_all_recipes(
+    ingredients: tuple[Ingredient, ...],
+    num_recipes: int,
+) -> None:
     assert num_recipes == len(list(all_recipes(ingredients)))
 
 
@@ -167,5 +173,5 @@ def test_all_recipes(ingredients, num_recipes):
         (aoc.get_input(2015, 15), 11171160),
     ],
 )
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

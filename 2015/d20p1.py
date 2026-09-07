@@ -66,5 +66,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 20), 776160),
     ],
 )
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

@@ -98,5 +98,5 @@ import pytest  # noqa: E402
 
 
 @pytest.mark.parametrize("inp,result", [(aoc.get_input(2015, 23), 184)])
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)
