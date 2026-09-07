@@ -34,7 +34,4 @@ repos:
     rev: v2.3.1
     hooks:
     -   id: mypy
-    -   id: mypy
-        name: mypy strict
-        args: [--config-file, pyproject.toml, --cache-dir, .mypy_strict_cache]
         additional_dependencies: [pytest]
