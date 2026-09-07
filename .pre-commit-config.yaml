@@ -41,5 +41,4 @@ repos:
         exclude: |
             (?x)(
                 ^2015/.*$
-                | ^aoc_test.py$
             )
