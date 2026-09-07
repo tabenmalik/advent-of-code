@@ -20,12 +20,12 @@ def equal_split(
         return None
 
     def _split_helper(
-        presents2=(),
-        present2_sum=0,
-        presents3=(),
-        present3_sum=0,
-        presents_index=0,
-    ):
+        presents2: Presents = (),
+        present2_sum: int = 0,
+        presents3: Presents = (),
+        present3_sum: int = 0,
+        presents_index: int = 0,
+    ) -> tuple[Presents, Presents] | None:
         # breakpoint()
         if presents_index == len(presents):
             if present2_sum == target and present3_sum == target:
@@ -128,7 +128,11 @@ import pytest  # noqa: E402
         ((15, 4, 3, 2), 4, None),
     ],
 )
-def test_equal_split(presents, target, split):
+def test_equal_split(
+    presents: tuple[int, ...],
+    target: int,
+    split: tuple[tuple[int, ...]],
+) -> None:
     assert equal_split(presents, target) == split
 
 
@@ -139,7 +143,11 @@ def test_equal_split(presents, target, split):
         ((1, 2, 3), 2, [((1, 2), (3,)), ((1, 3), (2,)), ((2, 3), (1,))]),
     ],
 )
-def test_partitions(presents, presents1_size, results):
+def test_partitions(
+    presents: tuple[int, ...],
+    presents1_size: int,
+    results: list[tuple[tuple[int, ...]]],
+) -> None:
     assert list(partitions(presents, presents1_size)) == results
 
 
@@ -150,5 +158,5 @@ def test_partitions(presents, presents1_size, results):
         (aoc.get_input(2015, 24), 10439961859),
     ],
 )
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

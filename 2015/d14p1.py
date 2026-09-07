@@ -76,7 +76,7 @@ import pytest  # noqa: E402
         ),
     ],
 )
-def test_parse_reindeer(line, reindeer):
+def test_parse_reindeer(line: str, reindeer: Reindeer) -> None:
     assert reindeer == parse_reindeer(line)
 
 
@@ -87,7 +87,11 @@ def test_parse_reindeer(line, reindeer):
         (Reindeer("Dancer", 16, 11, 162), 1000, 1056),
     ],
 )
-def test_propogate_reindeer(reindeer, seconds, distance):
+def test_propogate_reindeer(
+    reindeer: Reindeer,
+    seconds: int,
+    distance: int,
+) -> None:
     assert distance == propogate_reindeer(reindeer, seconds)
 
 
@@ -105,5 +109,5 @@ def test_propogate_reindeer(reindeer, seconds, distance):
         (aoc.get_input(2015, 14), 2503, 2640),
     ],
 )
-def test_race_reindeer(lines, seconds, max_distance):
+def test_race_reindeer(lines: str, seconds: int, max_distance: int) -> None:
     assert max_distance == race_reindeer(lines, seconds)

@@ -82,5 +82,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 13), 709),
     ],
 )
-def test_optimize_seating(inp, expected_total_happiness):
+def test_optimize_seating(inp: str, expected_total_happiness: int) -> None:
     assert expected_total_happiness == optimize_seating(inp)

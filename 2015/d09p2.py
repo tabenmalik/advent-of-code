@@ -71,5 +71,8 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 9), 909),
     ],
 )
-def test_find_longest_distance(distances, longest_distance):
+def test_find_longest_distance(
+    distances: str,
+    longest_distance: int,
+) -> None:
     assert longest_distance == find_longest_distance(distances)

@@ -44,7 +44,7 @@ import pytest  # noqa: E402
         ("111221", "312211"),
     ],
 )
-def test_look_and_say(n, result):
+def test_look_and_say(n: str, result: str) -> None:
     assert result == look_and_say(n)
 
 
@@ -61,5 +61,9 @@ def test_look_and_say(n, result):
         (aoc.get_input(2015, 10), 50, 6989950),
     ],
 )
-def test_length_of_final_look_and_say(start, iterations, length):
+def test_length_of_final_look_and_say(
+    start: str,
+    iterations: int,
+    length: int,
+) -> None:
     assert length == length_of_final_look_and_say(start, iterations)

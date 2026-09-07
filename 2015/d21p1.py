@@ -141,14 +141,14 @@ import pytest  # noqa: E402
         ),
     ],
 )
-def test_battle(player, boss, player_wins):
+def test_battle(player: Player, boss: Player, player_wins: bool) -> None:
     assert player_wins == battle(player, boss)
 
 
-def test_player_builds():
+def test_player_builds() -> None:
     assert 840 == len(list(all_player_builds()))
 
 
 @pytest.mark.parametrize("inp,result", [(aoc.get_input(2015, 21), 111)])
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

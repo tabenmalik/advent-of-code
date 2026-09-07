@@ -111,7 +111,10 @@ import pytest  # noqa: E402
         ),
     ],
 )
-def test_parse_instruction(instruction_string, instruction_obj):
+def test_parse_instruction(
+    instruction_string: str,
+    instruction_obj: LightOp,
+) -> None:
     assert instruction_obj == parse_instruction(instruction_string)
 
 
@@ -135,5 +138,5 @@ def test_parse_instruction(instruction_string, instruction_obj):
         (aoc.get_input(2015, 6), 543903),
     ],
 )
-def test_configure_lights(instructions, lit_lights):
+def test_configure_lights(instructions: str, lit_lights: int) -> None:
     assert lit_lights == configure_lights(instructions)

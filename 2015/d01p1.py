@@ -33,5 +33,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 1), 280),
     ],
 )
-def test_solve(directions, floor):
+def test_solve(directions: str, floor: int) -> None:
     assert ending_floor(directions) == floor

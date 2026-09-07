@@ -21,7 +21,10 @@ def equal_split(
 
     default_bags = ((),) * num_bags
 
-    def _split_helper(bags=default_bags, presents_index=0):
+    def _split_helper(
+        bags: tuple[Presents, ...] = default_bags,
+        presents_index: int = 0,
+    ) -> tuple[Presents, ...] | None:
         if presents_index == len(presents):
             for bag in bags:
                 if sum(bag) != target:
@@ -121,7 +124,12 @@ import pytest  # noqa: E402
         ((15, 4, 3, 2), 4, 2, None),
     ],
 )
-def test_equal_split(presents, target, num_bags, split):
+def test_equal_split(
+    presents: Presents,
+    target: int,
+    num_bags: int,
+    split: tuple[Presents, Presents],
+) -> None:
     assert equal_split(presents, target, num_bags) == split
 
 
@@ -132,7 +140,11 @@ def test_equal_split(presents, target, num_bags, split):
         ((1, 2, 3), 2, [((1, 2), (3,)), ((1, 3), (2,)), ((2, 3), (1,))]),
     ],
 )
-def test_partitions(presents, presents1_size, results):
+def test_partitions(
+    presents: Presents,
+    presents1_size: int,
+    results: list[tuple[Presents, ...]],
+) -> None:
     assert list(partitions(presents, presents1_size)) == results
 
 
@@ -143,5 +155,5 @@ def test_partitions(presents, presents1_size, results):
         (aoc.get_input(2015, 24), 72050269),
     ],
 )
-def test_solve(inp, result):
+def test_solve(inp: str, result: int) -> None:
     assert result == solve(inp)

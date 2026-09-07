@@ -28,5 +28,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 1), 1797),
     ],
 )
-def test_solve(directions, index):
+def test_solve(directions: str, index: int) -> None:
     assert first_time_in_basement(directions) == index

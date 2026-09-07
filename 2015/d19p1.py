@@ -64,5 +64,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 19), 518),
     ],
 )
-def test_count_molecules(inp, num_molecules):
+def test_count_molecules(inp: str, num_molecules: int) -> None:
     assert num_molecules == count_molecules(inp)

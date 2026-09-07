@@ -41,7 +41,7 @@ class Lights:
     def __init__(self, init_grid: GridData):
         self._grid: GridData = buffer_grid(init_grid)
 
-    def step(self):
+    def step(self) -> None:
         new_grid: list[list[str]] = []
 
         for row in range(1, len(self._grid) - 1):
@@ -52,7 +52,7 @@ class Lights:
 
         self._grid = buffer_grid(tuple(map(tuple, new_grid)))
 
-    def num_on(self):
+    def num_on(self) -> int:
         return len(
             tuple(True for row in self._grid for item in row if item == "#"),
         )
@@ -91,5 +91,9 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 18), 100, 814),
     ],
 )
-def test_conway_game_of_lights(init_config, steps, lights_on):
+def test_conway_game_of_lights(
+    init_config: str,
+    steps: int,
+    lights_on: int,
+) -> None:
     assert lights_on == conway_game_of_lights(init_config, steps)

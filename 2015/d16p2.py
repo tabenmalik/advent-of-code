@@ -69,5 +69,5 @@ import pytest  # noqa: E402
 
 
 @pytest.mark.parametrize("inp,result", [(aoc.get_input(2015, 16), 241)])
-def test_determine_sue(inp, result):
+def test_determine_sue(inp: str, result: int) -> None:
     assert result == determine_sue(inp)

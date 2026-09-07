@@ -58,5 +58,5 @@ import pytest  # noqa: E402
         (aoc.get_input(2015, 12), 68466),
     ],
 )
-def test_int_sum_from_json(inp, total):
+def test_int_sum_from_json(inp: str, total: int) -> None:
     assert total == int_sum_from_json(inp)

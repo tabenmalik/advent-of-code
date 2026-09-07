@@ -22,7 +22,7 @@ class ReindeerRaceState:
     distance: int = 0
     points: int = 0
 
-    def tick(self):
+    def tick(self) -> None:
         if self.flying:
             self.distance += self.reindeer.fly_speed
         self.countdown -= 1
@@ -34,7 +34,7 @@ class ReindeerRaceState:
                 self.countdown = self.reindeer.fly_duration
             self.flying = not self.flying
 
-    def give_point(self):
+    def give_point(self) -> None:
         self.points += 1
 
 
@@ -60,7 +60,7 @@ def parse_reindeer(line: str) -> Reindeer:
 
 def propogate_reindeers(
     reindeer_race: tuple[ReindeerRaceState, ...],
-):
+) -> None:
     for reindeer in reindeer_race:
         reindeer.tick()
 
@@ -117,7 +117,7 @@ import pytest  # noqa: E402
         ),
     ],
 )
-def test_parse_reindeer(line, reindeer):
+def test_parse_reindeer(line: str, reindeer: Reindeer) -> None:
     assert reindeer == parse_reindeer(line)
 
 
@@ -135,5 +135,5 @@ def test_parse_reindeer(line, reindeer):
         (aoc.get_input(2015, 14), 2503, 1102),
     ],
 )
-def test_race_reindeer(lines, seconds, max_distance):
+def test_race_reindeer(lines: str, seconds: int, max_distance: int) -> None:
     assert max_distance == race_reindeer(lines, seconds)

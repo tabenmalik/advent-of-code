@@ -3,13 +3,19 @@ from __future__ import annotations
 import re
 import string
 from collections import deque
+from collections.abc import Generator
+from collections.abc import Iterable
 from itertools import islice
+from typing import Any
 
 import aoc
 
 
 # recipe provided by python docs
-def sliding_window(iterable, n):
+def sliding_window(
+    iterable: Iterable[Any],
+    n: int,
+) -> Generator[tuple[Any, ...]]:
     "Collect data into overlapping fixed-length chunks or blocks."
     # sliding_window('ABCDEFG', 3) → ABC BCD CDE DEF EFG
     iterator = iter(iterable)
@@ -74,7 +80,7 @@ import pytest  # noqa: E402
         ("zz", "aa"),
     ],
 )
-def test_increment_password(prev, next_):
+def test_increment_password(prev: str, next_: str) -> None:
     assert next_ == increment_password(prev)
 
 
@@ -86,7 +92,7 @@ def test_increment_password(prev, next_):
         "abbcegjk",
     ],
 )
-def test_invalid_passwords(password):
+def test_invalid_passwords(password: str) -> None:
     assert not is_valid(password)
 
 
@@ -98,7 +104,7 @@ def test_invalid_passwords(password):
         "aabbccabc",
     ],
 )
-def test_valid_passwords(password):
+def test_valid_passwords(password: str) -> None:
     assert is_valid(password)
 
 
@@ -110,5 +116,5 @@ def test_valid_passwords(password):
         (aoc.get_input(2015, 11), "vzbxxyzz"),
     ],
 )
-def test_next_valid_password(prev_password, password):
+def test_next_valid_password(prev_password: str, password: str) -> None:
     assert password == next_valid_password(prev_password)
