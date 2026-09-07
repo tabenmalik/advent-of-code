@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from collections.abc import Generator
+from collections.abc import Iterable
 from itertools import batched
 from itertools import groupby
 from itertools import islice
-from pathlib import Path
+from typing import Any
 
 EXAMPLE = """\
 11-22,95-115,998-1012,1188511880-1188511890,222220-222224,
@@ -13,11 +15,14 @@ EXAMPLE = """\
 """
 
 
-def take(n, iterable):
+def take(n: int, iterable: Iterable[Any]) -> list[Any]:
     return list(islice(iterable, n))
 
 
-def all_equal(iterable, key=None):
+def all_equal(
+    iterable: Iterable[Any],
+    key: Callable[[Any], Any] | None = None,
+) -> bool:
     return len(take(2, groupby(iterable, key))) <= 1
 
 
@@ -39,18 +44,11 @@ def _is_actually_invalid_id(i: int) -> bool:
     return False
 
 
-def _read_id_ranges(path: Path) -> list[tuple[int, ...]]:
-    with open(path) as fobj:
-        range_strings = fobj.read().strip().split(",")
-
-    ranges = [tuple(map(int, s.split("-"))) for s in range_strings]
-
-    return ranges
-
-
-def _parse_id_ranges(input_s):
-    input_s = input_s.strip().split(",")
-    ranges = [tuple(map(int, s.split("-"))) for s in input_s]
+def _parse_id_ranges(input_s: str) -> list[tuple[int, int]]:
+    ranges = []
+    for range_str in input_s.strip().split(","):
+        a, _, b = range_str.partition("-")
+        ranges.append((int(a), int(b)))
     return ranges
 
 
@@ -60,13 +58,13 @@ def _get_invalid_ids(id_range: tuple[int, int]) -> Generator[int]:
             yield i
 
 
-def _get_actual_invalid_ids(id_range):
+def _get_actual_invalid_ids(id_range: tuple[int, int]) -> Generator[int]:
     for i in range(id_range[0], id_range[1] + 1):
         if _is_actually_invalid_id(i):
             yield i
 
 
-def solve(input_s):
+def solve(input_s: str) -> int:
     id_ranges = _parse_id_ranges(input_s)
     invalid_id_sum = 0
     for id_range in id_ranges:
