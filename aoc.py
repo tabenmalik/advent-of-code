@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import sys
 from collections.abc import Callable
 from collections.abc import Sequence
 from pathlib import Path
@@ -73,13 +74,13 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         "import aoc\n"
         "\n"
         "\n"
-        "def solve(inp: str) -> str:\n"
+        "def part1(inp: str) -> str:\n"
         '    return ""\n'
         "\n"
         "\n"
         'if __name__ == "__main__":\n'
         "    raise SystemExit(\n"
-        f"        aoc.problem_entry_point(solve, {args.year}, {args.day}),\n"
+        f"        aoc.entry(part1, part2=None, year={args.year}, day={args.day}),\n"  # noqa: E501
         "    )\n"
         "\n"
         "\n"
@@ -92,9 +93,36 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         '        ("blah", ""),\n'
         "    ],\n"
         ")\n"
-        "def test_solve(inp: str, result: str) -> None:\n"
-        "    assert result == solve(inp)",
+        "def test_part1(inp: str, result: str) -> None:\n"
+        "    assert result == part1(inp)",
     )
+    return 0
+
+
+def entry(
+    part1: Callable[[str], object],
+    part2: Callable[[str], object] | None,
+    year: int,
+    day: int,
+    argv: Sequence[str] | None = None,
+) -> int:
+    parser = argparse.ArgumentParser()
+    part = parser.add_mutually_exclusive_group()
+    part.add_argument("-p2", "--part2", action="store_true")
+
+    args = parser.parse_args(argv)
+
+    problem_input = get_input(year, day)
+
+    if args.part2:
+        if part2 is None:
+            print("There is no part 2 for this problem.", file=sys.stderr)
+            return 1
+        else:
+            print(part2(problem_input))
+    else:
+        print(part1(problem_input))
+
     return 0
 
 
