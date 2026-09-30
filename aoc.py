@@ -89,10 +89,10 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         "@pytest.mark.parametrize(\n"
         '    "inp,result",\n'
         "    [\n"
-        '        ("blah", "")\n'
-        "    ]\n"
+        '        ("blah", ""),\n'
+        "    ],\n"
         ")\n"
-        "def test_solve(inp, result):\n"
+        "def test_solve(inp: str, result: str) -> None:\n"
         "    assert result == solve(inp)",
     )
     return 0
