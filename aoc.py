@@ -74,13 +74,13 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         "import aoc\n"
         "\n"
         "\n"
-        "def solve(inp: str) -> str:\n"
+        "def part1(inp: str) -> str:\n"
         '    return ""\n'
         "\n"
         "\n"
         'if __name__ == "__main__":\n'
         "    raise SystemExit(\n"
-        f"        aoc.problem_entry_point(solve, {args.year}, {args.day}),\n"
+        f"        aoc.entry(part1, part2=None, year={args.year}, day={args.day}),\n"  # noqa: E501
         "    )\n"
         "\n"
         "\n"
@@ -93,8 +93,8 @@ def start_problem(argv: Sequence[str] | None = None) -> int:
         '        ("blah", ""),\n'
         "    ],\n"
         ")\n"
-        "def test_solve(inp: str, result: str) -> None:\n"
-        "    assert result == solve(inp)",
+        "def test_part1(inp: str, result: str) -> None:\n"
+        "    assert result == part1(inp)",
     )
     return 0
 

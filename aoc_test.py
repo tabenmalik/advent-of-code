@@ -102,7 +102,9 @@ def test_entry(getup):
 def test_start_problem(capsys, tmp_path):
     assert 0 == aoc.start_problem(("2025", "2"))
     captured = capsys.readouterr()
-    assert re.search(r"problem_entry_point\(solve, 2025, 2\)", captured.out)
+    assert re.search(
+        r"entry\(part1, part2=None, year=2025, day=2\)", captured.out,
+    )
 
     # don't care about the exact output of start_problem
     # but it needs to pass all of my linting checks
