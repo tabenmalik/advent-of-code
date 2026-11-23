@@ -12,7 +12,7 @@ repos:
         files: \.gitignore$
         args: [--unique]
 -   repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.30.6
+    rev: v2.31.2
     hooks:
     -   id: pyproject-fmt
         args: [--no-generate-python-version-classifiers]
@@ -35,11 +35,11 @@ repos:
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/flake8
-    rev: 7.4.1
+    rev: 7.5.0
     hooks:
     -   id: flake8
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v2.4.0
+    rev: v2.4.1
     hooks:
     -   id: mypy
         additional_dependencies: [pytest]
